@@ -1,0 +1,70 @@
+
+ol.list {
+    list-style-type: none;
+    margin: 0;
+    margin-left: 3em;
+    padding: 0;  
+    counter-reset: li-counter;
+}
+ol.list > li{
+    position: relative;
+    margin-bottom: 10px;
+    padding-left: 0.5em;
+    min-height: 1.5em;
+    border-left: 2px solid #CCCCCC;
+}
+
+ol.list > li:before {
+    position: absolute;
+    top: 0;
+    left: -1em;
+    width: 0.8em;
+
+    font-size: 1.5em;
+    line-height: 1;
+    font-weight: bold;
+    text-align: right;
+    color: #fff !important;
+
+    content: counter(li-counter);
+    counter-increment: li-counter;
+}
+
+.navbar {
+    margin-bottom: 0;
+    background-color: #33cc33;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 1px;
+    border-radius: 0;
+
+}
+
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #006600 !important;
+    background-color: #fff !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+
+
+.jumbotron {
+    background-color:#33cc33;
+    color: #fff;
+    padding: 50px 25px;
+}
+.bg-grey {
+    background-color: #f6f6f6;
+}
+.container-fluid {
+    padding: 60px 50px;
+}

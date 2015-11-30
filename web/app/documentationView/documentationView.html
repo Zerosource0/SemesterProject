@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="col-md-9" style="padding-left: 9em">
+        <h2>Documentation</h2>
+
+        <h2>How to Login</h2>
+        <p>To login as a User you can use these credentials</p>
+        <br>
+        <p>Username: user</p>
+
+        <p>Password: test</p>
+        <br>
+        <p>To login as a Admin you can use these credentials</p>
+        <br>
+        <p>Username: admin</p>
+
+        <p>Password: test</p>
+        <br>
+
+        <h2>Testing</h2>
+        <br>
+
+        <p>Our test cases were created to both comply with expected values and not. 
+            The way we set it up was making two different test classes, one for the rest API
+            and one for our facades used in the rest API. In the rest API test we are testing how to login
+            and extract user specific information. We also tried extracting information when not logged in as any role
+            and expecting to receive a certain status code. For our API we simply tested if the return status 200. We
+            did not check any responses made from the API methods. We tried to use a dedicated persistence unit and database for
+            the testing but we faced issues when doing so. Not only in the tests but it also seemed to cause problems in our application
+            itself. Thus we decided to use the database that the application was using. Yes, it does make our tests less
+            valid but we had to compromise for the sake of functionality. </p>
+        <img src="app/images/apiTest.png" width="800">
+
+        <p>In the backend testing unlike the API testing we tested more the values that were returned.
+            In the backend testing we have tested whether returns are not empty, making it clear that the method works and returns 
+            values and not an error. We mainly tested the adding and deleting of new users as we faced issues in our program
+            when we initially implemented this feature. We then also test the retrieval of currencies which is used in our 
+            exchange rate feature. All in all our test cases seem to pass and our system works as wanted, which was the most
+            important thing for us. </p>
+
+        <h2>Postman Testing</h2>
+        <h4>URIs</h4>
+        Our base URI is 'semesterSeedSP/api/'.
+        In order to run the tests you first have to run the web application itself. This will populate tables in your dedicated
+        database and make the tests function. In order to test in postman you will have to add to the base URI. Here is a couple of URIs
+        <br>
+        <p>Get - Users</p>
+        <p>/demoadmin/users</p>
+        <br>
+        <p>Post - Login</p>
+        <p>/login, you will also have to pass a json object in the body e.g: {\"username\":\"admin\",\"password\":\"test\"}</p>
+        <br>
+        <p>Get - Exchange Rates</p>
+        <p>/currency/dailyrates</p>
+        <br>
+        <p>Post - New User</p>
+        <p>/newuser, body: {\"username\":\"newUser\",\"password\":\"test\",\"role\":\"admin\"} </p>
+        <br>
+        <p>Delete - Delete User</p>
+        <p>/admin/users/{id}</p>
+        <br>
+        <p>Note: In order to test features that require a login you will have to pass a header in the postman app with the token you receive
+            when logging in.</p>
+    </div>
+</div>

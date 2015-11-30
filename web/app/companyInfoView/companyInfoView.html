@@ -1,0 +1,54 @@
+<div class="container">
+    <h2>Company Info</h2>
+    
+        <div>
+        <form class="form-group" role="form">
+        <form role="form">
+            <label>Search</label>
+            <input type="text" class="form-control" ng-model="searchInput.search">
+            <br>
+            <label>Country</label>
+            <select class="form-control" ng-model="searchInput.country">
+                <option value="dk">DK</option>
+                <option value="no">NO</option>
+            </select>
+            <br>
+            <button type="submit" class="btn btn-default" ng-click="submitSearch()">Search</button>
+        </form>
+        <br>
+        <div ng-show="searchClicked">
+        <p><strong>CVR-number:</strong> {{result.vat}}</p>
+        <p><strong>Name:</strong>  {{result.name}}</p>
+        <p><strong>Address: </strong> {{result.address}}</p>
+        <p><strong>Zip Code: </strong> {{result.zipcode}}</p>
+        <p><strong>City: </strong> {{result.city}}</p>
+        <p><strong>Phone: </strong> {{result.phone}}</p>
+        <p><strong>Email: </strong> {{result.email}}</p>
+        <p><strong>Industry: </strong> {{result.industrydesc}}</p>
+        </div>
+        <div>
+        <uib-accordion>
+            <uib-accordion-group ng-repeat="n in companyList">
+                <uib-accordion-heading>{{n.name}}</uib-accordion-heading>
+                <ul>
+                    <li>
+                        Address: {{n.address}}
+                    </li>
+                    <li>
+                        City: {{n.city}}
+                    </li>
+                    <li>
+                        Zip code: {{n.zipcode}}
+                    </li>
+                    <li>
+                        Email: {{n.email}}
+                    </li>
+                    <li>
+                        Phone: {{n.phone}}
+                    </li>
+                </ul>
+            </uib-accordion-group>
+        </uib-accordion>
+        </div>
+    </div>
+</div>

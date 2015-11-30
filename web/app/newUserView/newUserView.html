@@ -1,0 +1,20 @@
+<div class="container">
+    <h2>Create New User</h2>
+    <form class="form-group">
+        <label>Username</label><br>
+        <input class="form-control" type="text" ng-model="newUser.username"><br>
+        <label>Password</label><br>
+        <input class="form-control" type="text" ng-model="newUser.password">
+
+        <label>Role</label><br>
+        <select class="form-control" ng-model="newUser.role">
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+        </select>
+        <br>
+        <button type="submit" class="btn btn-default" value="submitNewUser" ng-click="submitNewUser()">Add User</button>
+        <br>
+        {{success}}
+    </form>
+</div>
+

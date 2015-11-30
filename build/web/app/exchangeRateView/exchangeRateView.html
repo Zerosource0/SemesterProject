@@ -1,0 +1,53 @@
+<div class="container">
+    <h2>Exchange-rates</h2>
+    <div>
+        <div class="col-md-9">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Currency Code</th>
+                        <th>Description</th>
+                        <th>Rate</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="rate in rates">
+                        <td>{{rate.code}}</td>
+                        <td>{{rate.desc}}</td>
+                        <td>{{rate.rate |number:4}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="col-md-3" style="border: thin orangered solid; border-radius: 5px;padding: 1em;">
+            <h3>Convert Currencies</h3>
+            <form class="form-group">
+                
+                <label >From</label>
+                <select style="color:orangered" class="form-control" ng-model="fromCurrency" ng-change="convert()">
+                    <option style="color:orangered" ng-repeat="rate in rates" value="{{rate.code}}">{{rate.code}}</option>
+                </select>
+                
+                <br>            
+                <p class="text-center">
+                    <a  href="" ng-click="convertSwitch(); convert()">
+                   <span class="glyphicon glyphicon-sort" style="color:orangered"></span>
+                 </a>
+                </p>
+                
+                <label>To</label>
+                <select style="color:orangered" class="form-control" ng-model="toCurrency" ng-change="convert()">
+                    <option style="color:orangered" ng-repeat="rate in rates" value="{{rate.code}}">{{rate.code}}</option>
+                </select>
+                <br>
+                <label>Amount</label>  
+                <input style="color:orangered" class="form-control" type="number" ng-model="amount" ng-change="convert()"/>
+                <br>
+                <label style="color:orangered">{{result |number:2}} {{toCurrency}}</label>
+            </form>
+            
+        </div>
+    </div>
+</div>

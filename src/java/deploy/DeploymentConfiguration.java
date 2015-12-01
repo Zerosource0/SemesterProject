@@ -1,5 +1,6 @@
 package deploy;
 
+import entity.AirlinesUrl;
 import entity.Currdesc;
 import entity.Currvalues;
 import entity.Role;
@@ -49,6 +50,7 @@ public class DeploymentConfiguration implements ServletContextListener {
       User user = new User("user", PasswordHash.createHash("test"));
       User admin = new User("admin", PasswordHash.createHash("test"));
       User both = new User("user_admin", PasswordHash.createHash("test"));
+      AirlinesUrl aru = new AirlinesUrl("http://angularairline-plaul.rhcloud.com/");
       user.AddRole(userRole);
       admin.AddRole(adminRole);
       both.AddRole(userRole);
@@ -59,6 +61,7 @@ public class DeploymentConfiguration implements ServletContextListener {
         em.getTransaction().begin();
         em.persist(userRole);
         em.persist(adminRole);
+        em.persist(aru);
         
         
 

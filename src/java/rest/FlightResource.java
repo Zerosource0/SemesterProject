@@ -5,31 +5,16 @@
  */
 package rest;
 
-import static com.google.common.base.Predicates.in;
-import com.google.gson.stream.JsonReader;
-import java.io.BufferedReader;
+import facades.FlightSearchFacade;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import static java.lang.System.in;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import net.minidev.json.JSONObject;
 
 /**
  * REST Web Service
@@ -56,12 +41,14 @@ public class FlightResource {
     @GET
     @Path("/{from}/{date}/{seats}")
     @Produces("application/json")
-    @Consumes("application/json")
-    public void getJson(@PathParam("from") String from, @PathParam("date") String date, @PathParam("seats") String seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
+    public String getJson(@PathParam("from") String from, @PathParam("date") String date, @PathParam("seats") String seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
     {
-
+        FlightSearchFacade facade = new FlightSearchFacade();
+        
+        
         //String url = "http://angularairline-plaul.rhcloud.com/api/flightinfo/" + from + "/" + date + "/" + seats;
         //for each ariline do this;
+        return facade.read(from, date, Integer.SIZE);
         
             
     }

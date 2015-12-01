@@ -1,3 +1,27 @@
 <div class="container">
-    <h2>Home</h2>
+    <h2>Search Flights</h2>
+    
+    <div class="col-md-3" style="border: thin darkgreen solid; border-radius: 5px;padding: 1em;">
+    <form class="form-group">
+        <label>From</label>
+        <select class="form-control" ng-model="search.from">
+                <option value="SXF">Berlin, Schönefeld</option>
+                <option value="no">Copenhagen, Kastrup</option>
+                <option value="STN">London, Stansted</option>
+                <option value="CDG">Paris, Charles de Gaulle</option>
+                <option value="BCN">Barcelona, International</option>
+                
+        </select>
+        <br>
+        <label>Date</label>
+        <input class="form-control" type="date" ng-model="search.date">
+        <br>
+        <label>Seats</label>
+        <input class="form-control" type="number" ng-model="search.seats">
+        <br>
+        <input type="submit" class="btn btn-success" ng-click="searchFrom()">
+    </form>
+        
+        <div>{{data}}</div>
+    </div>
 </div>

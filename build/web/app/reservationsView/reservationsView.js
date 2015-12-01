@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('myApp.exchangeRateApp', ['ngRoute'])
+angular.module('myApp.reservationsView', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
 
-  $routeProvider.when('/exchangeRateInfo', {
-    templateUrl: 'app/exchangeRateView/exchangeRateView.html',
-    controller: 'exchangeRateViewCtrl',
+  $routeProvider.when('/reservationsView', {
+    templateUrl: 'app/reservationsView/reservationsView.html',
+    controller: 'reservationsViewCtrl',
     controllerAs: 'ctrl'
   });
-}]).controller('exchangeRateViewCtrl', function ($http, $scope) {
+}]).controller('reservationsViewCtrl', function ($http, $scope) {
           $http({
             method: 'GET',
             url: 'api/demouser'

@@ -9,7 +9,7 @@ angular.module('myApp', [
   'myApp.homeView',
   'myApp.documentationView',
   'myApp.companyInfoView',
-  'myApp.exchangeRateApp',
+  'myApp.reservationsView',
   'myApp.allUsers',
   'myApp.newUserView',
   'myApp.filters',

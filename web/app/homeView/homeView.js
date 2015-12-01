@@ -16,7 +16,7 @@ angular.module('myApp.homeView', ['ngRoute'])
           $scope.searchFrom = function(){
           $http({
             method: 'GET',
-            url: "http://angularairline-plaul.rhcloud.com/api/flightinfo/"+$scope.search.from+"/"+$scope.search.date.toISOString()+"/"+$scope.search.seats
+            url: "api/flightinfo/"+$scope.search.from+"/"+$scope.search.date.toISOString()+"/"+$scope.search.seats
           }).then(function successCallback(res) {
             $scope.data = res.data;
             

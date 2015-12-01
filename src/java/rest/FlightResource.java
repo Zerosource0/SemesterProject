@@ -41,14 +41,14 @@ public class FlightResource {
     @GET
     @Path("/{from}/{date}/{seats}")
     @Produces("application/json")
-    public String getJson(@PathParam("from") String from, @PathParam("date") String date, @PathParam("seats") String seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
+    public String getJson(@PathParam("from") String from, @PathParam("date") String date, @PathParam("seats") int seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
     {
         FlightSearchFacade facade = new FlightSearchFacade();
         
         
         //String url = "http://angularairline-plaul.rhcloud.com/api/flightinfo/" + from + "/" + date + "/" + seats;
         //for each ariline do this;
-        return facade.read(from, date, Integer.SIZE);
+        return facade.read(from, date, seats);
         
             
     }

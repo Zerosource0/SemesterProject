@@ -57,7 +57,8 @@ public class FlightResource {
     @Path("/{from}/{date}/{seats}")
     @Produces("application/json")
     @Consumes("application/json")
-    public String getJson(@PathParam("from") String from, @PathParam("date") String date, @PathParam("seats") String seats) throws UnsupportedEncodingException, MalformedURLException, IOException {
+    public void getJson(@PathParam("from") String from, @PathParam("date") String date, @PathParam("seats") String seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
+    {
 
         //String url = "http://angularairline-plaul.rhcloud.com/api/flightinfo/" + from + "/" + date + "/" + seats;
         //for each ariline do this;

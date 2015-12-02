@@ -42,7 +42,7 @@ public class FlightSearchFacade {
         //First get airlines from database: simulated here:
         airlineUrls = new ArrayList<String>(); // should use a method to get airline urls from the DB instead of adding hardcoded like in this example;
         airlineUrls.add("http://angularairline-plaul.rhcloud.com/");
-        airlineUrls.add("http://wildfly-x.cloudapp.net/");
+        airlineUrls.add("http://wildfly-x.cloudapp.net/airline/");
         results = new ArrayList<String>();
 
         List<Future<String>> list = new ArrayList<>();
@@ -85,7 +85,7 @@ public class FlightSearchFacade {
         //First get airlines from database: simulated here:
         airlineUrls = new ArrayList<String>(); // should use a method to get airline urls from the DB instead of adding hardcoded like in this example;
         airlineUrls.add("http://angularairline-plaul.rhcloud.com/");
-        airlineUrls.add("http://wildfly-x.cloudapp.net/");
+        airlineUrls.add("http://wildfly-x.cloudapp.net/airline/");
         results = new ArrayList<String>();
 
         List<Future<String>> list = new ArrayList<>();

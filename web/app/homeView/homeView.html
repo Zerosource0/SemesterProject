@@ -1,27 +1,74 @@
 <div class="container">
     <h2>Search Flights</h2>
-    
-    <div class="col-md-3" style="border: thin darkgreen solid; border-radius: 5px;padding: 1em;">
-    <form class="form-group">
-        <label>From</label>
-        <select class="form-control" ng-model="search.from">
-                <option value="SXF">Berlin, Schönefeld</option>
-                <option value="CPH">Copenhagen, Kastrup</option>
-                <option value="STN">London, Stansted</option>
-                <option value="CDG">Paris, Charles de Gaulle</option>
-                <option value="BCN">Barcelona, International</option>
-                
-        </select>
+
+    <div style="text-align: left; text-shadow:none;" class="col-md-3">
+        <div  style="border: thin darkgreen solid; border-radius: 5px;padding: 1em;">
+            <form class="form-group">
+                <label>From</label>
+                <select class="form-control" ng-model="searchf.from">
+                    <option  ng-repeat="airport in airports" value="{{airport.iata}}">{{airport.cityname}}, {{airport.description}}</option>
+                </select>
+                <br>
+                <label>Date</label>
+                <input class="form-control" type="date" ng-model="searchf.date">
+                <br>
+                <label>Seats</label>
+                <input class="form-control" type="number" ng-model="searchf.seats">
+                <br>
+                <input type="submit" class="btn btn-success" ng-click="searchFrom()">
+            </form>   
+        </div>
         <br>
-        <label>Date</label>
-        <input class="form-control" type="date" ng-model="search.date">
-        <br>
-        <label>Seats</label>
-        <input class="form-control" type="number" ng-model="search.seats">
-        <br>
-        <input type="submit" class="btn btn-success" ng-click="searchFrom()">
-    </form>
         
-        <div>{{data}}</div>
+        <div style="border: thin darkgreen solid; border-radius: 5px;padding: 1em;">
+            <form class="form-group">
+                <label>From</label>
+                <select class="form-control" ng-model="searcht.from">
+                    <option  ng-repeat="airport in airports" value="{{airport.iata}}">{{airport.cityname}}, {{airport.description}}</option>
+                </select>
+                <br>
+                <label>To</label>
+                <select class="form-control" ng-model="searcht.to">
+                    <option  ng-repeat="airport in airports" value="{{airport.iata}}">{{airport.cityname}}, {{airport.description}}</option>
+                </select>
+                <br>
+                <label>Date</label>
+                <input class="form-control" type="date" ng-model="searcht.date">
+                <br>
+                <label>Seats</label>
+                <input class="form-control" type="number" ng-model="searcht.seats">
+                <br>
+                <input type="submit" class="btn btn-success" ng-click="searchFromTo()">
+            </form>   
+        </div>
+    </div>
+    
+    <div>
+    <div class="col-md-9">
+        <table ng-repeat="line in data" ng-if="line.status != 500" class="table">        
+          <thead>
+            <th>Airline</th>
+            <th>Flight ID</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Date</th>
+            <th>Seats</th>
+            <th>Travel Time</th>
+            <th>Price</th>
+        </thead>
+        
+        <tbody>
+            <tr ng-repeat="f in line.flights">
+                <td>{{line.airline}}</td>
+                <td>{{f.flightID}}</td>
+                <td>{{f.origin}}</td>
+                <td>{{f.destination}}</td>
+                <td>{{f.date | date : medium }}</td>
+                <td>{{f.numberOfSeats}}</td>
+                <td>{{f.traveltime}} Minutes</td>
+                <td>{{f.totalPrice}}</td>
+            </tr>
+        </tbody>
+      </table>
     </div>
 </div>

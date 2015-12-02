@@ -6,6 +6,8 @@
 package facades;
 
 import com.google.gson.Gson;
+import deploy.DeploymentConfiguration;
+import entity.Airport;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,6 +19,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -29,6 +34,8 @@ public class smallTester {
     public static FlightSearchFacade fsFacade;
 
     public static void main(String[] args) {
+        
+
 //        CurrencyFacade cf = new CurrencyFacade();
 //        ArrayList al=cf.getAllValues();
 //        cf.getComplete();
@@ -38,6 +45,9 @@ public class smallTester {
 //        //System.out.println(gson.toJson(cf.getComplete()));
 //        UserFacade uf = new UserFacade();
 //        uf.newUser("gypsyyyyy", "test", "admin");
+       /*
+        
+        
         fsFacade = new FlightSearchFacade();
         airlineUrls = new ArrayList<String>();
         airlineUrls.add("http://angularairline-plaul.rhcloud.com/");
@@ -75,6 +85,7 @@ public class smallTester {
         }
 
         System.out.println(results.toString());
-
+               */
     }
+               
 }

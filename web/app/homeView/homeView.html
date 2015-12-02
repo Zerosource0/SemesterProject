@@ -45,7 +45,7 @@
     
     <div>
     <div class="col-md-9">
-        <table ng-repeat="line in data" ng-if="line.status != 500" class="table">        
+        <table ng-repeat="line in data" ng-if="line.status != 500 && line.httpError != 404" class="table">        
           <thead>
             <th>Airline</th>
             <th>Flight ID</th>

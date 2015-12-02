@@ -12,18 +12,18 @@ angular.module('myApp.homeView', ['ngRoute'])
 
         .controller('homeViewCtrl', function ($http, $scope) {
             $http({
-                    method: 'GET',
-                    url: "api/airport/"
-                }).then(function successCallback(res) {
-                    $scope.airports = res.data;
+                method: 'GET',
+                url: "api/airport/"
+            }).then(function successCallback(res) {
+                $scope.airports = res.data;
 
-                }, function errorCallback(res) {
-                    $scope.error = res.status + ": " + res.data.statusText;
-                });
+            }, function errorCallback(res) {
+                $scope.error = res.status + ": " + res.data.statusText;
+            });
 
 
 
-            $scope.searchFrom = function () { 
+            $scope.searchFrom = function () {
                 var year = $scope.searchf.date.getFullYear();
                 var month = $scope.searchf.date.getMonth();
                 var day = $scope.searchf.date.getDate();
@@ -40,8 +40,8 @@ angular.module('myApp.homeView', ['ngRoute'])
                     $scope.error = res.status + ": " + res.data.statusText;
                 });
             };
-            
-            $scope.searchFromTo = function () { 
+
+            $scope.searchFromTo = function () {
                 var year = $scope.searcht.date.getFullYear();
                 var month = $scope.searcht.date.getMonth();
                 var day = $scope.searcht.date.getDate();
@@ -52,8 +52,9 @@ angular.module('myApp.homeView', ['ngRoute'])
                     method: 'GET',
                     url: "api/flightinfo/" + $scope.searcht.from + "/" + $scope.searcht.to + "/" + date.toISOString() + "/" + $scope.searcht.seats
                 }).then(function successCallback(res) {
-                    $scope.data = res.data;
-
+                    
+                        $scope.data = res.data;
+                    
                 }, function errorCallback(res) {
                     $scope.error = res.status + ": " + res.data.statusText;
                 });

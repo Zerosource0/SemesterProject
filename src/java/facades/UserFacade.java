@@ -3,6 +3,7 @@ package facades;
 import deploy.DeploymentConfiguration;
 import entity.Role;
 import entity.User;
+import exceptions.BadParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
@@ -23,6 +24,10 @@ public class UserFacade {
   
   public Boolean newUser (String userName, String password, String roleName )
   {
+      
+    if(userName.equals("")|| password.equals("") || userName==null|| password== null){
+        throw new BadParameterException("Make sure your username or password is not blank");
+    }
       EntityManager em = emf.createEntityManager();
       
       try 
@@ -35,8 +40,6 @@ public class UserFacade {
         }
         else
         {
-            System.out.println("I'm here");
-            String pass;
             User newUser = new User(userName, PasswordHash.createHash(password));
             try
             {

@@ -7,6 +7,7 @@ package facades;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import exceptions.BadParameterException;
 import static facades.smallTester.airlineUrls;
 import static facades.smallTester.fsFacade;
 import static facades.smallTester.results;
@@ -46,6 +47,10 @@ public class FlightSearchFacade {
         results = new ArrayList<String>();
 
         List<Future<String>> list = new ArrayList<>();
+        
+//           if(from == null || date == null || seats==null ){
+//            throw new BadParameterException("Enter all necessary information");
+//        }
 
         ExecutorService executor = Executors.newFixedThreadPool(8);
 

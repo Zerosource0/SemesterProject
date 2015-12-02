@@ -5,6 +5,8 @@
  */
 package rest;
 
+import exceptions.BadParameterException;
+import exceptions.NotFoundException;
 import facades.FlightSearchFacade;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -27,17 +29,13 @@ public class FlightResource {
     @Context
     private UriInfo context;
 
-    /**
-     * Creates a new instance of FlightResource
-     */
+   
     public FlightResource() {
     }
 
-    /**
-     * Retrieves representation of an instance of rest.FlightResource
-     *
-     * @return an instance of java.lang.String
-     */
+ //String url = "http://angularairline-plaul.rhcloud.com/api/flightinfo/" + from + "/" + date + "/" + seats;
+        //for each ariline do this;
+    
     @GET
     @Path("/{from}/{date}/{seats}")
     @Produces("application/json")
@@ -45,9 +43,6 @@ public class FlightResource {
     {
         FlightSearchFacade facade = new FlightSearchFacade();
         
-        
-        //String url = "http://angularairline-plaul.rhcloud.com/api/flightinfo/" + from + "/" + date + "/" + seats;
-        //for each ariline do this;
         return facade.getJsonFromAirlinesFrom(from, date, seats);
             
     }
@@ -58,9 +53,7 @@ public class FlightResource {
     {
         FlightSearchFacade facade = new FlightSearchFacade();
         
-        
-        //String url = "http://angularairline-plaul.rhcloud.com/api/flightinfo/" + from + "/" + date + "/" + seats;
-        //for each ariline do this;
+         
         return facade.getJsonFromAirlinesFromTo(from, to, date, seats);
             
     }

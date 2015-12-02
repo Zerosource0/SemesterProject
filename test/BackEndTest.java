@@ -5,7 +5,6 @@
  */
 
 import entity.User;
-import facades.CurrencyFacade;
 import facades.UserFacade;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,6 @@ import static org.junit.Assert.*;
 public class BackEndTest {
     
     UserFacade uf = new UserFacade();
-    CurrencyFacade cf = new CurrencyFacade();
     
     public BackEndTest() {
         
@@ -47,27 +45,5 @@ public class BackEndTest {
     public void deleteUser(){
        User user =  uf.deleteUser("newBackEndUSer");
        user.getUserName().equals("newBackEndUSer");
-    }
-    
-      @Test
-    public void getCurrencies(){
-       ArrayList list = cf.getComplete();
-       assertFalse(list.isEmpty());
-    }
-    
-       @Test
-    public void getValues(){
-       ArrayList list = cf.getAllValues();
-       assertFalse(list.isEmpty());
-    }
-    
-       @Test
-    public void getDescriptions(){
-       ArrayList list = cf.getAllDesc();
-       assertFalse(list.isEmpty());
-    }
-              
-    
-   
-    
+    }  
 }

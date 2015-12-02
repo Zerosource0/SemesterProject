@@ -42,9 +42,21 @@ public class FlightResource {
     public String getJsonFrom(@PathParam("from") String from, @PathParam("date") String date, @PathParam("seats") int seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
     {
         FlightSearchFacade facade = new FlightSearchFacade();
+
+        if(from.equals("")|| date.equals("")){
+            throw new BadParameterException("Missing input or badly formatted");
+        }
+        if(seats<=0){
+            throw new BadParameterException("Select a number of seats");
+        }
         
-        return facade.getJsonFromAirlinesFrom(from, date, seats);
-            
+        String result = facade.getJsonFromAirlinesFrom(from, date, seats);  
+        
+        if(result == null){
+            throw new NotFoundException("No flights available");
+        }
+        
+        return result;
     }
     @GET
     @Path("/{from}/{to}/{date}/{seats}")
@@ -53,9 +65,21 @@ public class FlightResource {
     {
         FlightSearchFacade facade = new FlightSearchFacade();
         
+           if(from.equals("")|| to.equals("")|| date.equals("")){
+             throw new BadParameterException("Missing input or badly formatted");
+         }
+         if(seats<=0){
+             throw new BadParameterException("Select a number of seats");
+         }
          
-        return facade.getJsonFromAirlinesFromTo(from, to, date, seats);
-            
+                 String result = facade.getJsonFromAirlinesFrom(from, date, seats);  
+
+         
+         if(result == null){
+            throw new NotFoundException("This flight is not available");
+        }
+         
+        return result;            
     }
 
 }

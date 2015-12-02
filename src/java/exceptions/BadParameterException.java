@@ -16,8 +16,8 @@ import javax.ws.rs.core.Response;
 public class BadParameterException extends WebApplicationException{
     public BadParameterException(String message) {
     super(Response.status(Response.Status.BAD_REQUEST)
-            .entity(new ErrorMessage(message, Response.Status.BAD_REQUEST.getStatusCode(), "non-existent or bad formatting" ))
-            .type(MediaType.APPLICATION_XML).build());
+            .entity(message)
+            .type(MediaType.TEXT_PLAIN).build());
 }
     
 }

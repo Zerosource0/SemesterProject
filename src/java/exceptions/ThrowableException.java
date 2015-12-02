@@ -13,11 +13,12 @@ import javax.ws.rs.core.Response;
  *
  * @author williambech
  */
-public class NotFoundException extends WebApplicationException{
+public class ThrowableException extends WebApplicationException{
     
-    public NotFoundException(String message){
-        super(Response.status(Response.Status.NOT_FOUND)
-                .entity(new ErrorMessage(message,"Not Found"))
+       public ThrowableException(String message){
+        super(Response.status(Response.Status.BAD_REQUEST)
+                .entity(new ErrorMessage("This page doesn't exist", "Bad Request"))
                 .type(MediaType.APPLICATION_XML).build());
     };
+    
 }

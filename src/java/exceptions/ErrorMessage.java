@@ -15,15 +15,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ErrorMessage {
     
     private String message;
-    private Integer status;
     private String description;
 
     public ErrorMessage() {
     }
 
-    public ErrorMessage(String message, Integer status, String description) {
+    public ErrorMessage(String message, String description) {
         this.message = message;
-        this.status = status;
         this.description = description;
     }
 
@@ -35,14 +33,6 @@ public class ErrorMessage {
         this.message = message;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -50,7 +40,5 @@ public class ErrorMessage {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
     
 }

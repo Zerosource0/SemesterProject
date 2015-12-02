@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.nimbusds.jose.JOSEException;
+import exceptions.BadParameterException;
 import facades.UserFacade;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.NotAuthorizedException;
@@ -42,10 +43,18 @@ public class NewUserResource {
   @Produces(MediaType.APPLICATION_JSON)
   public Response newUser(String jsonString) throws JOSEException 
   {
+    if(jsonString == null){
+        throw new BadParameterException("Make sure you enter something");
+    }
     JsonObject json = new JsonParser().parse(jsonString).getAsJsonObject();
     String username =  json.get("username").getAsString(); 
     String password =  json.get("password").getAsString();
     String role = json.get("role").getAsString();
+    
+    if(username.equals("")|| password.equals("")|| role == null){
+        throw new BadParameterException("Make sure you enter something");
+    }
+    
     JsonObject responseJson = new JsonObject();
     UserFacade uf = new UserFacade();
     boolean addUser = uf.newUser(username, password, role);

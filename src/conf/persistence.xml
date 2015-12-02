@@ -6,14 +6,13 @@
     <class>entity.Role</class>
     <class>entity.Currdesc</class>
     <class>entity.Currvalues</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <!-- REPLACE ALL THIS WITH INFO FOR YOUR OWN DB -->
       <property name="eclipselink.canonicalmodel.subpackage" value="development"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="test"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>

@@ -30,15 +30,31 @@ angular.module('myApp.homeView', ['ngRoute'])
                 var date = new Date(year, month, day, 1);
 
 
-                $http({
-                    method: 'GET',
-                    url: "api/flightinfo/" + $scope.searchf.from + "/" + date.toISOString() + "/" + $scope.searchf.seats
-                }).then(function successCallback(res) {
-                    $scope.data = res.data;
-
-                }, function errorCallback(res) {
-                    $scope.error = res.status + ": " + res.data.statusText;
+                $http.get("api/flightinfo/" + $scope.searchf.from + "/" + date.toISOString() + "/" + $scope.searchf.seats)
+                        .success(function (data, status) {
+                            if (status != 200) {
+                                $scope.toException = data;
+                                console.log("res:" + data);
+                            } else {
+                                $scope.data = data;
+                            }
+                        }
+                        ).error(function (data, status) {
+                    console.log(data);
+                    $scope.error = data;
                 });
+
+//                $http({
+//                    method: 'GET',
+//                    url: "api/flightinfo/" + $scope.searchf.from + "/" + date.toISOString() + "/" + $scope.searchf.seats
+//                }).then(function successCallback(res) {
+//                    $scope.data = res.data;
+//                    console.log("res: " + res.data);
+//
+//                }, function errorCallback(res) {
+//                    console.log(res);
+//                    $scope.error = res.status + ": " + res.data.statusText;
+//                });
             };
 
             $scope.searchFromTo = function () {
@@ -47,17 +63,30 @@ angular.module('myApp.homeView', ['ngRoute'])
                 var day = $scope.searcht.date.getDate();
                 var date = new Date(year, month, day, 1);
 
-
-                $http({
-                    method: 'GET',
-                    url: "api/flightinfo/" + $scope.searcht.from + "/" + $scope.searcht.to + "/" + date.toISOString() + "/" + $scope.searcht.seats
-                }).then(function successCallback(res) {
-                    
-                        $scope.data = res.data;
-                    
-                }, function errorCallback(res) {
-                    $scope.error = res.status + ": " + res.data.statusText;
+                $http.get("api/flightinfo/" + $scope.searcht.from + "/" + $scope.searcht.to + "/" + date.toISOString() + "/" + $scope.searcht.seats)
+                        .success(function (data, status) {
+                            if (status != 200) {
+                                $scope.toFromException = data;
+                                console.log("res:" + data);
+                            } else {
+                                $scope.data = data;
+                            }
+                        }
+                        ).error(function (data, status) {
+                    console.log(data);
+                    $scope.error = data;
                 });
+
+//                $http({
+//                    method: 'GET',
+//                    url: "api/flightinfo/" + $scope.searcht.from + "/" + $scope.searcht.to + "/" + date.toISOString() + "/" + $scope.searcht.seats
+//                }).then(function successCallback(res) {
+//                    
+//                        $scope.data = res.data;
+//                    
+//                }, function errorCallback(res) {
+//                    $scope.error = res.status + ": " + res.data.statusText;
+//                });
             };
 
 

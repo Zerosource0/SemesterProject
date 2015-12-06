@@ -8,6 +8,7 @@ package facades;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import exceptions.BadParameterException;
+import exceptions.NotFoundException;
 import static facades.smallTester.airlineUrls;
 import static facades.smallTester.fsFacade;
 import static facades.smallTester.results;
@@ -173,12 +174,7 @@ public class FlightSearchFacade {
             scan.close();
             return jsonStr;
         } catch (IOException ex) {
-            JsonObject json = new JsonObject();
-            json.addProperty("airline", airlineUrl);
-            json.addProperty("status", 500);
-            json.addProperty("message", "No such flight exists");
-            return gson.toJson(json);
-
+            throw new NotFoundException("No search results");
         }
 
     }

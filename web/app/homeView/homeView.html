@@ -16,6 +16,8 @@
                 <input class="form-control" type="number" ng-model="searchf.seats">
                 <br>
                 <input type="submit" class="btn btn-success" ng-click="searchFrom()">
+                <br>
+                {{toException}}
             </form>   
         </div>
         <br>
@@ -39,13 +41,16 @@
                 <input class="form-control" type="number" ng-model="searcht.seats">
                 <br>
                 <input type="submit" class="btn btn-success" ng-click="searchFromTo()">
+                <br>
+                {{toFromException}}
             </form>   
         </div>
     </div>
     
     <div>
     <div class="col-md-9">
-        <table ng-repeat="line in data" ng-if="line.status != 500 && line.httpError != 404" class="table">        
+        
+        <table ng-if="data!=null" class="table">        
           <thead>
             <th>Airline</th>
             <th>Flight ID</th>

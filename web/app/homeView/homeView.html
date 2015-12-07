@@ -48,7 +48,10 @@
     </div>
     
     <div>
+        
+        
     <div class="col-md-9">
+        <div class="col-md-9"><h3>{{loading}}</h3></div>
         
         <table ng-repeat="line in data" ng-if="data!=null" class="table">        
           <thead>
@@ -68,10 +71,10 @@
                 <td>{{f.flightID}}</td>
                 <td>{{f.origin}}</td>
                 <td>{{f.destination}}</td>
-                <td>{{f.date | date : medium }}</td>
+                <td>{{f.date | date:"MM/dd/yyyy h:mma" }}</td>
                 <td>{{f.numberOfSeats}}</td>
                 <td>{{f.traveltime}} Minutes</td>
-                <td>{{f.totalPrice |number:2}}</td>
+                <td>{{f.totalPrice | number:2}}</td>
             </tr>
         </tbody>
       </table>

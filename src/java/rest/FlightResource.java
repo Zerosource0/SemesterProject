@@ -76,7 +76,7 @@ public class FlightResource {
              throw new BadParameterException("Select a number of seats");
          }
          
-                 String result = facade.getJsonFromAirlinesFrom(from, date, seats);  
+                 String result = facade.getJsonFromAirlinesFromTo(from,to, date, seats);  
 
          
          if(result == null){

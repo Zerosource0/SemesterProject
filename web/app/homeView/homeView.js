@@ -24,6 +24,7 @@ angular.module('myApp.homeView', ['ngRoute'])
 
 
             $scope.searchFrom = function () {
+                $scope.loading = "Searching for flights.."
                 $scope.toException = "";
                 $scope.toFromException = "";
                 var year = $scope.searchf.date.getFullYear();
@@ -36,8 +37,10 @@ angular.module('myApp.homeView', ['ngRoute'])
                         .success(function (data, status) {
                             if (status != 200) {
                                 $scope.toException = data;
+                                $scope.loading = "";
                                 console.log("res:" + data);
                             } else {
+                                $scope.loading = "";
                                 $scope.data = data;
                             }
                         }
@@ -49,6 +52,7 @@ angular.module('myApp.homeView', ['ngRoute'])
             };
 
             $scope.searchFromTo = function () {
+                $scope.loading = "Searching for flights.."
                 $scope.toFromException = "";
                 $scope.toException = "";
                 var year = $scope.searcht.date.getFullYear();
@@ -62,6 +66,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                                 $scope.toFromException = data;
                                 console.log("res:" + data);
                             } else {
+                                $scope.loading = "";
                                 $scope.data = data;
                             }
                         }

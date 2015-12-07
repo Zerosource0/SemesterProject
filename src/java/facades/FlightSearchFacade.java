@@ -148,11 +148,7 @@ public class FlightSearchFacade {
             scan.close();
             return jsonStr;
         } catch (IOException ex) {
-            JsonObject json = new JsonObject();
-            json.addProperty("airline", airlineUrl);
-            json.addProperty("status", 500);
-            json.addProperty("message", "No such flight exists");
-            return gson.toJson(json);
+            throw new NotFoundException("No search results");
         }
     }
 

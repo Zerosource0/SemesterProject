@@ -24,6 +24,8 @@ angular.module('myApp.homeView', ['ngRoute'])
 
 
             $scope.searchFrom = function () {
+                $scope.toException = "";
+                $scope.toFromException = "";
                 var year = $scope.searchf.date.getFullYear();
                 var month = $scope.searchf.date.getMonth();
                 var day = $scope.searchf.date.getDate();
@@ -44,20 +46,11 @@ angular.module('myApp.homeView', ['ngRoute'])
                     $scope.error = data;
                 });
 
-//                $http({
-//                    method: 'GET',
-//                    url: "api/flightinfo/" + $scope.searchf.from + "/" + date.toISOString() + "/" + $scope.searchf.seats
-//                }).then(function successCallback(res) {
-//                    $scope.data = res.data;
-//                    console.log("res: " + res.data);
-//
-//                }, function errorCallback(res) {
-//                    console.log(res);
-//                    $scope.error = res.status + ": " + res.data.statusText;
-//                });
             };
 
             $scope.searchFromTo = function () {
+                $scope.toFromException = "";
+                $scope.toException = "";
                 var year = $scope.searcht.date.getFullYear();
                 var month = $scope.searcht.date.getMonth();
                 var day = $scope.searcht.date.getDate();
@@ -77,16 +70,6 @@ angular.module('myApp.homeView', ['ngRoute'])
                     $scope.error = data;
                 });
 
-//                $http({
-//                    method: 'GET',
-//                    url: "api/flightinfo/" + $scope.searcht.from + "/" + $scope.searcht.to + "/" + date.toISOString() + "/" + $scope.searcht.seats
-//                }).then(function successCallback(res) {
-//                    
-//                        $scope.data = res.data;
-//                    
-//                }, function errorCallback(res) {
-//                    $scope.error = res.status + ": " + res.data.statusText;
-//                });
             };
 
 

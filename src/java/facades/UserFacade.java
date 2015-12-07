@@ -17,7 +17,9 @@ import security.PasswordHash;
 public class UserFacade {
 
   EntityManagerFactory emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
-
+  User currentUser = null;
+  
+  
   public UserFacade() {
    
   }
@@ -99,6 +101,7 @@ public class UserFacade {
     EntityManager em = emf.createEntityManager();
     try {
       User user =  em.find(User.class, userName);
+      currentUser = user;
       if(user == null){
         return null;
       }

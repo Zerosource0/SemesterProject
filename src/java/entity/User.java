@@ -21,6 +21,7 @@ public class User implements Serializable {
   @Id
   private String userName;
   
+  
   @ManyToMany(cascade = CascadeType.PERSIST)
   @JoinTable(name = "SystemUser_USERROLE", joinColumns = {
   @JoinColumn(name = "userName", referencedColumnName = "userName")}, inverseJoinColumns = {

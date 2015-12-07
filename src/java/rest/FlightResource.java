@@ -5,6 +5,8 @@
  */
 package rest;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import exceptions.BadParameterException;
 import exceptions.NotFoundException;
 import facades.FlightSearchFacade;
@@ -28,7 +30,8 @@ public class FlightResource {
 
     @Context
     private UriInfo context;
-
+    
+    Gson gson = new Gson();
    
     public FlightResource() {
     }
@@ -52,7 +55,8 @@ public class FlightResource {
         
         String result = facade.getJsonFromAirlinesFrom(from, date, seats);  
         
-        if(result == null){
+        
+        if(result.contains("httpError")){
             throw new NotFoundException("No flights available");
         }
         

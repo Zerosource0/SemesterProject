@@ -17,7 +17,7 @@ public class NotFoundException extends WebApplicationException{
     
     public NotFoundException(String message){
         super(Response.status(Response.Status.NOT_FOUND)
-                .entity(new ErrorMessage(message,"Not Found"))
+                .entity(message)
                 .type(MediaType.APPLICATION_XML).build());
     };
 }

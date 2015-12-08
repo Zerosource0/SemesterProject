@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title> Website </title>
-    <link rel="stylesheet" href="style/main.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
-    
-    <script src="app/bower_components/angular/angular.js"></script>
+<html ng-app="myApp" >
+    <head>
+        <title> Website </title>
+        <link rel="stylesheet" href="style/main.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
+
+        <script src="app/bower_components/angular/angular.js"></script>
         <script src="app/bower_components/angular-route/angular-route.js"></script>
         <script src='app/bower_components/angular-animate/angular-animate.min.js'></script>
         <script src="app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
@@ -24,218 +24,237 @@
         <script src="app/components/directives.js"></script>
         <script src="app/components/factories.js"></script>
         <script src="app/components/services.js"></script>
-    
-    <script>
-      $(document).ready(function (){
-      $("#gt").click(function (){
-          //$(this).animate(function(){
-              $('html, body').animate({
-                  scrollTop: $("#gtop").offset().top
-              }, 1000);
-          //});
-        });
-      });
-    </script>
-    <script src="js/modernizr.custom.js"></script>
-  </head>
 
-  <body>
-    <header id="gtop">
-      <div class="mask">
-        <div class="top-h">
-          <div class="logo">
-            <a href="#"> LOGO </a>
-          </div>
-          <div class="menu">
-            <ul>
-              <li><a href="#"> Flights </a> </li>
-              <li><a href="#"> Hotels </a> </li>
-              <li><a href="#"> Car rentals </a> </li>
-            </ul>s
-          </div>
-        </div>
+        <script>
+            $(document).ready(function () {
+                $("#gt").click(function () {
+                    //$(this).animate(function(){
+                    $('html, body').animate({
+                        scrollTop: $("#gtop").offset().top
+                    }, 1000);
+                    //});
+                });
+            });
+        </script>
+        <script src="js/modernizr.custom.js"></script>
+    </head>
 
-        <div class="welcome">
-          <h1> TRAVEL CHEAP, <BR>
-            TO ANY CITY IN <br>
-            THE WORLD </h1>
-        </div>
+    <body>
+        <header id="gtop">
+            <div class="mask">
+                <div  ng-controller="AppLoginCtrl">
+                <div class="top-h">
+                    <div class="logo">
+                        <a href="#"> {{title}} </a>
+                    </div>
+                    <div class="menu">
+                        <form role="form" ng-show="!isAuthenticated" ng-submit="login()" >
+                        <ul>
+                            <li>Username:<input name="security_username" type="text" style="width:10em;" placeholder="User name" class="form-control"ng-model="user.username"> </li>
+                            <li>Password:<input name="password" type="password" style="width:10em;" placeholder="Password" class="form-control"
+                                                ng-model="user.password"></li>
+                            <li><input type="submit" value="login" class="s-3"></li>
+                        </ul> 
+                        </form>
+                        <div class="navbar-right" ng-show="isAuthenticated">
 
-        <div class="search">
-          <div class="container-1">
-            <div class="col-5">
-              <input type="text" class="i-1" placeholder="Origin city">
-              <input type="submit" value="0" class="s-1">
+                        <p class="navbar-text">LOGGED ON AS: {{username|uppercase}}</p>
+
+                        <button type="submit" class="s-3" ng-click="logout()">Logout
+                        </button>
+                    </div>
+                    </div>
+                    
+
+                </div>
+
+
+                <div class="welcome">
+                    <h1 ng-show="!isAuthenticated"> CHEAP AS HELL,<BR>
+                    CAUSE WE ARE <BR>
+                    RUN BY GYPSIES
+                    </h1>
+                    <h1 ng-show="isAuthenticated"> WELL WELL WELL <BR>
+                        WE MEET AGAIN <br>
+                        MR.{{username|uppercase}}</h1>
+                </div>
+                    </div>
+
+                <div class="search">
+                    <div class="container-1">
+                        <div class="col-5">
+                            <input type="text" class="i-1" placeholder="Origin city">
+                            <input type="submit" value="0" class="s-1">
+                        </div>
+
+                        <div class="col-5">
+                            <input type="text" class="i-1" placeholder="Destination">
+                            <input type="submit" value="1" class="s-1">
+                        </div>
+
+                        <div class="col-5">
+                            <input type="date" class="i-1">
+                            <input type="submit" value="P" class="s-1">
+                        </div>
+
+                        <div class="col-5">
+                            <select class="se-1">
+                                <option> 1 </option>
+                                <option> 2 </option>
+                                <option> 3 </option>
+                                <option> 4 </option>
+                            </select>
+                            <input type="submit" value="Send" class="s-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="about">
+            <div class="title" data-sr="wait .2s, enter bottom, over .5s">
+                <h1> Lorem ipsum dolor sit amet </h1>
+            </div>
+            <h2 data-sr="wait .4s, enter bottom, over .5s"> Nam ultrices pellentesque facilisis. In semper tellus mollis nisl pulvinar vitae vulputate lorem consequat. Fusce
+                odio tortor, pretium sit amet auctor ut, ultrices vel nibh. Lorem ipsum dolor sit amet </h2>
+        </section>
+
+        <section class="blue">
+            <div class="title-w" data-sr="wait .2s, enter bottom, over .5s">
+                <h1> our service is easy to use </h1>
             </div>
 
-            <div class="col-5">
-              <input type="text" class="i-1" placeholder="Destination">
-              <input type="submit" value="1" class="s-1">
+            <div class="container-2">
+                <div class="col-3" data-sr="wait .4s, enter bottom, over .5s">
+                    <div class="ico">
+                        4
+                    </div>
+                    <h1> 1- Submit your location </h1>
+                    <h1> </h1>
+                </div>
+
+                <div class="col-3" data-sr="wait .6s, enter bottom, over .5s">
+                    <div class="ico">
+                        1
+                    </div>
+                    <h1> 2- Choose your destination </h1>
+                    <h1> </h1>
+                </div>
+
+                <div class="col-3" data-sr="wait .8s, enter bottom, over .5s">
+                    <div class="ico">
+                        6
+                    </div>
+                    <h1> 3- Love our service </h1>
+                    <h1> </h1>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="title" data-sr="wait .2s, enter bottom, over .5s">
+                <h1>popular destinations</h1>
             </div>
 
-            <div class="col-5">
-              <input type="date" class="i-1">
-              <input type="submit" value="P" class="s-1">
+            <div class="container-3" data-sr="wait .4s, enter bottom, over .5s">
+                <div class="col-4">
+                    <div class="pic">
+                        <div class="hov">
+                            <h1> New York </h1>
+                        </div>
+                        <img src="img/city.jpg">
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="pic">
+                        <div class="hov">
+                            <h1> New York </h1>
+                        </div>
+                        <img src="img/city.jpg">
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="pic">
+                        <div class="hov">
+                            <h1> New York </h1>
+                        </div>
+                        <img src="img/city.jpg">
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="pic">
+                        <div class="hov">
+                            <h1> New York </h1>
+                        </div>
+                        <img src="img/city.jpg">
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="pic">
+                        <div class="hov">
+                            <h1> New York </h1>
+                        </div>
+                        <img src="img/city.jpg">
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="pic">
+                        <div class="hov">
+                            <h1> New York </h1>
+                        </div>
+                        <img src="img/city.jpg">
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="pic">
+                        <div class="hov">
+                            <h1> New York </h1>
+                        </div>
+                        <img src="img/city.jpg">
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="more">
+                        <a href="#"> + </a>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="col-5">
-              <select class="se-1">
-                <option> 1 </option>
-                <option> 2 </option>
-                <option> 3 </option>
-                <option> 4 </option>
-              </select>
-              <input type="submit" value="Send" class="s-2">
+        <footer>
+            <div class="goto">
+                <div class="btn-top" id="gt"></div>
             </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <section class="about">
-      <div class="title" data-sr="wait .2s, enter bottom, over .5s">
-        <h1> Lorem ipsum dolor sit amet </h1>
-      </div>
-      <h2 data-sr="wait .4s, enter bottom, over .5s"> Nam ultrices pellentesque facilisis. In semper tellus mollis nisl pulvinar vitae vulputate lorem consequat. Fusce
-          odio tortor, pretium sit amet auctor ut, ultrices vel nibh. Lorem ipsum dolor sit amet </h2>
-    </section>
-
-    <section class="blue">
-      <div class="title-w" data-sr="wait .2s, enter bottom, over .5s">
-        <h1> our service is easy to use </h1>
-      </div>
-
-      <div class="container-2">
-        <div class="col-3" data-sr="wait .4s, enter bottom, over .5s">
-          <div class="ico">
-            4
-          </div>
-          <h1> 1- Submit your location </h1>
-          <h1> </h1>
-        </div>
-
-        <div class="col-3" data-sr="wait .6s, enter bottom, over .5s">
-          <div class="ico">
-            1
-          </div>
-          <h1> 2- Choose your destination </h1>
-          <h1> </h1>
-        </div>
-
-        <div class="col-3" data-sr="wait .8s, enter bottom, over .5s">
-          <div class="ico">
-            6
-          </div>
-          <h1> 3- Love our service </h1>
-          <h1> </h1>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="title" data-sr="wait .2s, enter bottom, over .5s">
-        <h1>popular destinations</h1>
-      </div>
-
-      <div class="container-3" data-sr="wait .4s, enter bottom, over .5s">
-        <div class="col-4">
-          <div class="pic">
-            <div class="hov">
-              <h1> New York </h1>
+            <div class="footer-left">
+                <div class="menu-footer">
+                    <ul>
+                        <li><a href="#"> Flights </a> </li>
+                        <li><a href="#"> Hotels </a> </li>
+                        <li><a href="#"> Car rentals </a> </li>
+                    </ul>
+                </div>
+                <h1> Copyright 2015 <span> All rights reserved </span> </h1>
             </div>
-            <img src="img/city.jpg">
-          </div>
-        </div>
-
-        <div class="col-4">
-          <div class="pic">
-            <div class="hov">
-              <h1> New York </h1>
+            <div class="footer-right">
+                <h1> WE ARE SOCIAL </h1>
+                <ul>
+                    <li> <a href="#"> <img src="img/fb.png"> </a> </li>
+                    <li> <a href="#"> <img src="img/tw.png"> </a> </li>
+                </ul>
             </div>
-            <img src="img/city.jpg">
-          </div>
-        </div>
+        </footer>
+        <script src='js/scrollReveal.min.js'></script>
+        <script>
 
-        <div class="col-4">
-          <div class="pic">
-            <div class="hov">
-              <h1> New York </h1>
-            </div>
-            <img src="img/city.jpg">
-          </div>
-        </div>
+                                window.sr = new scrollReveal();
 
-        <div class="col-4">
-          <div class="pic">
-            <div class="hov">
-              <h1> New York </h1>
-            </div>
-            <img src="img/city.jpg">
-          </div>
-        </div>
-
-        <div class="col-4">
-          <div class="pic">
-            <div class="hov">
-              <h1> New York </h1>
-            </div>
-            <img src="img/city.jpg">
-          </div>
-        </div>
-
-        <div class="col-4">
-          <div class="pic">
-            <div class="hov">
-              <h1> New York </h1>
-            </div>
-            <img src="img/city.jpg">
-          </div>
-        </div>
-
-        <div class="col-4">
-          <div class="pic">
-            <div class="hov">
-              <h1> New York </h1>
-            </div>
-            <img src="img/city.jpg">
-          </div>
-        </div>
-
-        <div class="col-4">
-          <div class="more">
-            <a href="#"> + </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <div class="goto">
-        <div class="btn-top" id="gt"></div>
-      </div>
-      <div class="footer-left">
-        <div class="menu-footer">
-          <ul>
-            <li><a href="#"> Flights </a> </li>
-            <li><a href="#"> Hotels </a> </li>
-            <li><a href="#"> Car rentals </a> </li>
-          </ul>
-        </div>
-        <h1> Copyright 2015 <span> All rights reserved </span> </h1>
-      </div>
-      <div class="footer-right">
-        <h1> WE ARE SOCIAL </h1>
-        <ul>
-          <li> <a href="#"> <img src="img/fb.png"> </a> </li>
-          <li> <a href="#"> <img src="img/tw.png"> </a> </li>
-        </ul>
-      </div>
-    </footer>
-    <script src='js/scrollReveal.min.js'></script>
-    <script>
-
-      window.sr = new scrollReveal();
-
-    </script>
-  </body>
+        </script>
+    </body>
 </html>

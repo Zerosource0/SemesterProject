@@ -150,6 +150,18 @@ header{
   background:#121212;
   cursor:pointer;
 }
+.s-3{
+  width:80px;
+  height: 25px;
+  border-radius:10%;
+  margin:10px 20px 0 0;
+  float:right;
+  font-family:Raleway;
+  color:#aaa;
+  text-transform:uppercase;
+  background:#121212;
+  cursor:pointer;
+}
 
 /* Section */
 section{

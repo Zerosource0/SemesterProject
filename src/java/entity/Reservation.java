@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -22,6 +23,19 @@ public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    
+    
+    @ManyToOne 
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     
     private String airline;
     
@@ -42,7 +56,8 @@ public class Reservation implements Serializable {
     public Reservation() {
     }
 
-    public Reservation(String airline, String flightID, String flightDate, int numberOfSeats, int travelTime, int totalPrice, String origin, String destination) {
+    public Reservation(User user,String airline, String flightID, String flightDate, int numberOfSeats, int travelTime, int totalPrice, String origin, String destination) {
+        this.user=user;
         this.airline = airline;
         this.flightID = flightID;
         this.flightDate = flightDate;
@@ -119,6 +134,11 @@ public class Reservation implements Serializable {
 
     public void setDestination(String destination) {
         this.destination = destination;
+    }
+    
+    @Override
+    public String toString() {
+        return "Reservation{" + "id=" + id + ", user=" + user + ", airline=" + airline + ", flightID=" + flightID + ", flightDate=" + flightDate + ", numberOfSeats=" + numberOfSeats + ", travelTime=" + travelTime + ", totalPrice=" + totalPrice + ", origin=" + origin + ", destination=" + destination + '}';
     }
     
     

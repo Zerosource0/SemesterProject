@@ -22,7 +22,7 @@ public class User implements Serializable {
   private String firstName;
   private String lastName;
   private String email;
-  
+  private String phone;
   
   @ManyToMany(cascade = CascadeType.PERSIST)
   @JoinTable(name = "SystemUser_USERROLE", joinColumns = {
@@ -33,12 +33,13 @@ public class User implements Serializable {
   public User() {
   }
 
-  public User(String userName, String password, String firstName, String lastName, String email) {
+  public User(String userName, String password, String firstName, String lastName, String email, String phone) {
     this.userName = userName;
     this.password = password;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
+    this.phone = phone;
   }
 
   public List<String> getRolesAsStrings(){
@@ -98,6 +99,12 @@ public class User implements Serializable {
       this.lastName = lastName;
   }
   
- 
-          
+      public String getPhone(){
+      return phone;
+  }
+  
+  public void setPhone(String phone){
+      this.phone = phone;
+  }
+       
 }

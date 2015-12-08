@@ -16,7 +16,7 @@ angular.module('myApp.newUserView', ['ngRoute'])
                     $http.post('api/newuser', {username: $scope.newUser.username, 
                         password: $scope.newUser.password, role: $scope.newUser.role, 
                         firstName: $scope.newUser.firstName, lastName: $scope.newUser.lastName,
-                    email: $scope.newUser.email})
+                    email: $scope.newUser.email, phone: $scope.newUser.phone})
                             .success(function (data)
                             {
                                 console.log(data);

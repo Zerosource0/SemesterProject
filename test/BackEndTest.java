@@ -26,7 +26,7 @@ public class BackEndTest {
     
     @Test
     public void newUser(){
-       uf.newUser("newBackEndUSer", "test", "admin", "Johnny", "Doey", "mail@mail.com").equals(true);
+       uf.newUser("newBackEndUSer", "test", "admin", "Johnny", "Doey", "mail@mail.com","123456").equals(true);
     }
     
      @Test

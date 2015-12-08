@@ -38,15 +38,13 @@ angular.module('myApp.homeView', ['ngRoute'])
                             if (status != 200) {
                                 $scope.toException = data;
                                 $scope.loading = "";
-                                console.log("res:" + data);
+                                console.log("res:" + $scope.searchf.from + "/" + date.toISOString() + "/" + $scope.searchf.seats);
                             } else {
                                 $scope.loading = "";
                                 $scope.data = data;
                                 console.log("res200:" + data);
-
+                                console.log("res:" + $scope.searchf.from + "/" + date.toISOString() + "/" + $scope.searchf.seats);
                             }
-                                $scope.data = data;
-                                console.log("res:" + data +", Status:"+status);
                         }
                         ).error(function (data, status) {
                     console.log(data);
@@ -72,6 +70,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                             } else {
                                 $scope.loading = "";
                                 $scope.data = data;
+                                console.log($scope.searcht.from + "/" + $scope.searcht.to + "/" + date.toISOString() + "/" + $scope.searcht.seats);
                             }
                         }
                         ).error(function (data, status) {

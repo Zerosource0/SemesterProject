@@ -46,4 +46,14 @@ public class BackEndTest {
        User user =  uf.deleteUser("newBackEndUSer");
        user.getUserName().equals("newBackEndUSer");
     }  
+    
+    @Test
+    public void searchToResult(){
+        
+    }
+    
+     @Test
+    public void searchToFromResult(){
+        
+    }
 }

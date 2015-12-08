@@ -86,56 +86,36 @@ public class ApiTest {
                 then().
                 statusCode(401);
     }
-    @Test
-    public void getUsersLogin_200(){
-                
-        String token = given().
-                contentType("application/json").
-                body("{\"username\":\"admin\",\"password\":\"test\"}").
-                when().
-                post("/login").
-                then().
-                statusCode(200).
-                extract().
-                path("token");
-        
-           given().
-                log().all().
-                headers("Authorization", "Bearer "+token).
-                contentType(MediaType.APPLICATION_JSON).
-                when().
-                get("/demoadmin/users").
-                then().
-                statusCode(200);
-    }
-     @Test
-    public void getExchangeRateLogin_200(){
-                
-        String token = given().
-                contentType("application/json").
-                body("{\"username\":\"user\",\"password\":\"test\"}").
-                when().
-                post("/login").
-                then().
-                statusCode(200).
-                extract().
-                path("token");
-        
-           given().
-                log().all().
-                headers("Authorization", "Bearer "+token).
-                contentType(MediaType.APPLICATION_JSON).
-                when().
-                get("/currency/dailyrates").
-                then().
-                statusCode(200);
-    }
+//    @Test
+//    public void getUsersLogin_200(){
+//                
+//        String token = given().
+//                contentType("application/json").
+//                body("{\"username\":\"admin\",\"password\":\"test\"}").
+//                when().
+//                post("/login").
+//                then().
+//                statusCode(200).
+//                extract().
+//                path("token");
+//        
+//           given().
+//                log().all().
+//                headers("Authorization", "Bearer "+token).
+//                contentType(MediaType.APPLICATION_JSON).
+//                when().
+//                get("/demoadmin/users").
+//                then().
+//                statusCode(200);
+//    }
     @Test
     public void addNewUser_200(){
         
         given().
                 contentType("application/json").
-                body("{\"username\":\"newUserTestttttttt\",\"password\":\"test\",\"role\":\"admin\"}").
+                body("{\"username\":\"newUserTestttttttt\",\"password\":\"test\",\"role\":\"admin\","
+                        + " \"firstName\":\"fname\", \"lastName\":\"lname\",  \"email\":\"mail@mail\","
+                        + " \"phone\":\"1234\"}").
                 when().post("/newuser").
                 then().statusCode(200);
                 
@@ -146,10 +126,51 @@ public class ApiTest {
         
         given().
                 contentType("application/json").
-                body("{\"username\":\"newUserTesttt\",\"password\":\"test\", \"role\":\"WrongRole\"}").
+                body("{\"username\":\"newUserTesttt\",\"password\":\"test\", \"role\":\"WrongRole\","
+                        + " \"firstName\":\"fname\", \"lastName\":\"lname\",  \"email\":\"mail@mail\","
+                        + " \"phone\":\"1234\"}").
                 when().post("/newuser").
                 then().statusCode(401);
                 
+    }
+    
+    @Test
+    public void searchToTest_200(){
+        
+        given().
+                contentType("application/json").
+                when().get("flightinfo/CPH/2016-01-01T00:00:00.000Z/1").
+                then().statusCode(200);
+                
+    }
+    
+      @Test
+    public void searchToFromTest_200(){
+        
+        given().
+                contentType("application/json").
+                when().get("flightinfo/CPH/SXF/2016-01-01T00:00:00.000Z/1").
+                then().statusCode(200);
+                
+    }
+    
+      @Test
+    public void searchToWrongSeatTest_400(){
+        
+        given().
+                contentType("application/json").
+                when().get("flightinfo/CPH/2016-01-01T00:00:00.000Z/0").
+                then().statusCode(400);
+                
+    }
+    
+      @Test
+    public void searchToFromWrongSeatTest_400(){
+        
+        given().
+                contentType("application/json").
+                when().get("flightinfo/CPH/SXF/2016-01-01T00:00:00.000Z/0").
+                then().statusCode(400);        
     }
     
 }

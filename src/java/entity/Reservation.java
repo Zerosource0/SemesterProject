@@ -27,7 +27,7 @@ public class Reservation implements Serializable {
     
     private String flightID;
     
-    private Date flightDate;
+    private String flightDate;
     
     private int numberOfSeats;
     
@@ -42,7 +42,7 @@ public class Reservation implements Serializable {
     public Reservation() {
     }
 
-    public Reservation(String airline, String flightID, Date flightDate, int numberOfSeats, int travelTime, int totalPrice, String origin, String destination) {
+    public Reservation(String airline, String flightID, String flightDate, int numberOfSeats, int travelTime, int totalPrice, String origin, String destination) {
         this.airline = airline;
         this.flightID = flightID;
         this.flightDate = flightDate;
@@ -73,11 +73,11 @@ public class Reservation implements Serializable {
         this.flightID = flightID;
     }
 
-    public Date getFlightDate() {
+    public String getFlightDate() {
         return flightDate;
     }
 
-    public void setFlightDate(Date flightDate) {
+    public void setFlightDate(String flightDate) {
         this.flightDate = flightDate;
     }
 

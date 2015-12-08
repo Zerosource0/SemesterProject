@@ -24,7 +24,7 @@ public class UserFacade {
    
   }
   
-  public Boolean newUser (String userName, String password, String roleName )
+  public Boolean newUser (String userName, String password, String roleName, String firstName, String lastName, String email )
   {
       
     if(userName.equals("")|| password.equals("") || userName==null|| password== null){
@@ -42,7 +42,7 @@ public class UserFacade {
         }
         else
         {
-            User newUser = new User(userName, PasswordHash.createHash(password));
+            User newUser = new User(userName, PasswordHash.createHash(password), firstName, lastName, email);
             try
             {
             newUser.AddRole(em.find(Role.class, roleName));

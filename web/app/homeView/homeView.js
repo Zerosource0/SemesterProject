@@ -42,7 +42,11 @@ angular.module('myApp.homeView', ['ngRoute'])
                             } else {
                                 $scope.loading = "";
                                 $scope.data = data;
+                                console.log("res200:" + data);
+
                             }
+                                $scope.data = data;
+                                console.log("res:" + data +", Status:"+status);
                         }
                         ).error(function (data, status) {
                     console.log(data);

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,10 +15,13 @@ import javax.persistence.Table;
 @Table(name="SystemUser")
 public class User implements Serializable {
   private static final long serialVersionUID = 1L;
-  private String password;  //Pleeeeease dont store me in plain text
+  private String password;
   
   @Id
   private String userName;
+  private String firstName;
+  private String lastName;
+  private String email;
   
   
   @ManyToMany(cascade = CascadeType.PERSIST)
@@ -31,9 +33,12 @@ public class User implements Serializable {
   public User() {
   }
 
-  public User(String userName, String password) {
+  public User(String userName, String password, String firstName, String lastName, String email) {
     this.userName = userName;
     this.password = password;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
   }
 
   public List<String> getRolesAsStrings(){
@@ -69,6 +74,29 @@ public class User implements Serializable {
     this.userName = userName;
   }
   
+  public String getEmail(){
+      return email;
+  }
+  
+  public void setEmail(String email){
+      this.email = email;
+  }
+  
+   public String getFirstName(){
+      return firstName;
+  }
+  
+  public void setFirstName(String firstName){
+      this.firstName = firstName;
+  }
+  
+    public String getLastName(){
+      return lastName;
+  }
+  
+  public void setLastName(String lastName){
+      this.lastName = lastName;
+  }
   
  
           

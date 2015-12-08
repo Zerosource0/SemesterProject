@@ -14,11 +14,13 @@ angular.module('myApp.newUserView', ['ngRoute'])
                 $scope.submitNewUser = function()
                 {
                     $http.post('api/newuser', {username: $scope.newUser.username, 
-                        password: $scope.newUser.password, role: $scope.newUser.role})
+                        password: $scope.newUser.password, role: $scope.newUser.role, 
+                        firstName: $scope.newUser.firstName, lastName: $scope.newUser.lastName,
+                    email: $scope.newUser.email})
                             .success(function (data)
                             {
                                 console.log(data);
-                                $scope.success = "Very Nice! You made a new User Account!";
+                                $scope.success = "You have successully registered";
                             })
                             .error(function (data, status)
                             {

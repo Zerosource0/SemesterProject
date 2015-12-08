@@ -1,34 +1,8 @@
 <div class="container">
-    <h2>My Reservations</h2>
+  <h1>Modal example</h1>
+  <button ng-click="toggleModal()" class="btn btn-default">Open modal</button>
     
-    <div class="col-md-9">
-        <div class="col-md-9"><h3>{{loading}}</h3></div>
-        
-        <table ng-repeat="line in data" ng-if="data!=null" class="table">        
-          <thead>
-            <th>Airline</th>
-            <th>Flight ID</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Date</th>
-            <th>Seats</th>
-            <th>Travel Time</th>
-            <th>Price</th>
-        </thead>
-        
-        <tbody>
-            <tr ng-repeat="f in line.flights">
-                <td>{{line.airline}}</td>
-                <td>{{f.flightID}}</td>
-                <td>{{f.origin}}</td>
-                <td>{{f.destination}}</td>
-                <td>{{f.date | date:"MM/dd/yyyy h:mma" }}</td>
-                <td>{{f.numberOfSeats}}</td>
-                <td>{{f.traveltime}} Minutes</td>
-                <td>{{f.totalPrice | number:2}} USD</td>
-            </tr>
-        </tbody>
-      </table>
-    </div>
-    
+  <modal title="Reservations" visible="showModal">
+      <h2>My Reservations</h2>
+  </modal>
 </div>

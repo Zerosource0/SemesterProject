@@ -39,15 +39,14 @@ public class DeploymentConfiguration implements ServletContextListener {
       EntityManager em = emf.createEntityManager();
       
       //This flag is set in Web.xml -- Make sure to disable for a REAL system
-      boolean makeTestUsers = context.getInitParameter("makeTestUsers").toLowerCase().equals("true");
+      /*boolean makeTestUsers = context.getInitParameter("makeTestUsers").toLowerCase().equals("true");
       if (!makeTestUsers
               || (em.find(User.class, "user") != null && em.find(User.class, "admin") != null && em.find(User.class, "user_admin") != null)) {
         return;
-      }
+      }*/
       Role userRole = new Role("User");
       Role adminRole = new Role("Admin");
       
-      persistDanishBank(em);
 
       User user = new User("user", PasswordHash.createHash("test"));
       User admin = new User("admin", PasswordHash.createHash("test"));
@@ -74,7 +73,7 @@ public class DeploymentConfiguration implements ServletContextListener {
       } finally {
           persistDanishBank(em);
           persistAirports(em);
-        em.close();
+       // em.close();
       }
     } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) 
     {
@@ -115,7 +114,7 @@ public class DeploymentConfiguration implements ServletContextListener {
         ap.add(new Airport("SIN","Singapore","Singapore Changi International Airport"));
   
         try{
-        em.getTransaction().begin();
+        if (em.isOpen()) em.getTransaction().begin();
             for (Airport ap1 : ap) {
                 em.persist(ap1);
             }

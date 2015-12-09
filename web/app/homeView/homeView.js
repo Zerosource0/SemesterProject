@@ -21,16 +21,19 @@ angular.module('myApp.homeView', ['ngRoute'])
                 $scope.error = res.status + ": " + res.data.statusText;
             });
 
-
+        $scope.searching = false;
 
             $scope.searchFrom = function () {
                 $scope.loading = "Searching for flights.."
+                $scope.searching = true;
                 $scope.toException = "";
                 $scope.toFromException = "";
+                  console.log("date: "+ $scope.searchf.date);
                 var year = $scope.searchf.date.getFullYear();
                 var month = $scope.searchf.date.getMonth();
                 var day = $scope.searchf.date.getDate();
                 var date = new Date(year, month, day, 1);
+              
 
 
                 $http.get("api/flightinfo/" + $scope.searchf.from + "/" + date.toISOString() + "/" + $scope.searchf.seats)
@@ -54,6 +57,7 @@ angular.module('myApp.homeView', ['ngRoute'])
             };
 
             $scope.searchFromTo = function () {
+                $scope.searching = true;
                 $scope.loading = "Searching for flights.."
                 $scope.toFromException = "";
                 $scope.toException = "";
@@ -67,10 +71,13 @@ angular.module('myApp.homeView', ['ngRoute'])
                             if (status != 200) {
                                 $scope.toFromException = data;
                                 console.log("res:" + data);
+                                console.log($scope.searcht.from + "/" + $scope.searcht.to + "/" + date.toISOString() + "/" + $scope.searcht.seats);
                             } else {
                                 $scope.loading = "";
                                 $scope.data = data;
                                 console.log($scope.searcht.from + "/" + $scope.searcht.to + "/" + date.toISOString() + "/" + $scope.searcht.seats);
+                                console.log(data.toString());
+
                             }
                         }
                         ).error(function (data, status) {

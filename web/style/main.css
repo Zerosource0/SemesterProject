@@ -404,3 +404,31 @@ footer{
   width:100%;
   height:100%;
 }
+
+.tableContainer{
+    margin:auto;
+}
+
+
+.searchResultTable {
+    width: 80%;
+    margin:auto;
+}
+
+.searchResultTable th{
+    
+    text-align: center;
+    font-size: 1.5em;
+    font-family: Raleway;
+    font-weight: bold;
+}
+
+.searchResultTable th, td{
+    border-bottom: 1px solid #ddd;
+}
+
+.searchResultTable td{
+    text-align: center;
+    height: 3em;
+}
+.searchResultTable tr:nth-child(even) {background-color: #e9f6fc}

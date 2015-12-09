@@ -39,195 +39,235 @@
         <script src="js/modernizr.custom.js"></script>
     </head>
 
-    <body>
+    <body ng-controller="homeViewCtrl">
         <header id="gtop">
             <div class="mask">
                 <div  ng-controller="AppLoginCtrl">
-                <div class="top-h">
-                    <div class="logo">
-                        <a href="#"> {{title}} </a>
+                    <div class="top-h">
+                        <div class="logo">
+                            <a href="#"> Morondo </a>
+                        </div>
+                        <div class="menu">
+                            <form role="form" ng-show="!isAuthenticated" ng-submit="login()" ng-cloak>
+                                <ul>
+                                    <li>Username:<input name="security_username" type="text" style="width:10em;" placeholder="User name" class="form-control"ng-model="user.username"> </li>
+                                    <li>Password:<input name="password" type="password" style="width:10em;" placeholder="Password" class="form-control"
+                                                        ng-model="user.password"></li>
+                                    <li><input type="submit" value="login" class="s-3"></li>
+                                </ul> 
+                            </form>
+                            <div class="navbar-right" ng-show="isAuthenticated" ng-cloak>
+
+                                <p class="navbar-text">LOGGED IN AS: {{username|uppercase}}</p>
+
+                                <button type="submit" class="s-3" ng-click="logout()">Logout
+                                </button>
+                            </div>
+                        </div>
+
+
                     </div>
-                    <div class="menu">
-                        <form role="form" ng-show="!isAuthenticated" ng-submit="login()" >
-                        <ul>
-                            <li>Username:<input name="security_username" type="text" style="width:10em;" placeholder="User name" class="form-control"ng-model="user.username"> </li>
-                            <li>Password:<input name="password" type="password" style="width:10em;" placeholder="Password" class="form-control"
-                                                ng-model="user.password"></li>
-                            <li><input type="submit" value="login" class="s-3"></li>
-                        </ul> 
+
+
+                    <div class="welcome" ng-cloak>
+                        <h1 ng-show="!isAuthenticated"> CHEAP AS HELL,<BR>
+                            CAUSE WE ARE <BR>
+                            RUN BY GYPSIES
+                        </h1>
+                        <h1 ng-show="isAuthenticated"> WELL WELL WELL <BR>
+                            WE MEET AGAIN <br>
+                            MR.{{username|uppercase}}</h1>
+                    </div>
+                </div>
+                <div >
+                    <div class="search" ng-cloak>
+                        <form>
+                        <div class="container-1">
+                            <div class="col-5">  
+                                <input list="airports" class="i-1" placeholder="Origin city" ng-model="searcht.from">
+                                <datalist id="airports">
+                                    <option ng-repeat="airport in airports"  value="{{airport.iata}}">{{airport.cityname}}, {{airport.description}}/>
+                                </datalist>
+                                <input type="submit" value="0" class="s-1">
+                            </div>
+
+                            <div class="col-5">
+                                <input list="airports"  class="i-1" placeholder="Destination" ng-model="searcht.to">
+                                <datalist id="airports">
+                                    <option ng-repeat="airport in airports"  value="{{airport.iata}}">{{airport.cityname}}, {{airport.description}}/>
+                                </datalist>
+                                <input type="submit" value="1" class="s-1">
+                            </div>
+
+                            <div class="col-5">
+                                <input type="date" class="i-1" ng-model="searcht.date">
+                                <input type="submit" value="P" class="s-1">
+                            </div>
+
+                            <div class="col-5">
+                                <select class="se-1" ng-model="searcht.seats">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                </select>
+                                <input type="submit" value="Send" class="s-2" ng-click="searchFromTo()">
+                            </div>
+                        </div>
                         </form>
-                        <div class="navbar-right" ng-show="isAuthenticated">
-
-                        <p class="navbar-text">LOGGED ON AS: {{username|uppercase}}</p>
-
-                        <button type="submit" class="s-3" ng-click="logout()">Logout
-                        </button>
-                    </div>
-                    </div>
-                    
-
-                </div>
-
-
-                <div class="welcome">
-                    <h1 ng-show="!isAuthenticated"> CHEAP AS HELL,<BR>
-                    CAUSE WE ARE <BR>
-                    RUN BY GYPSIES
-                    </h1>
-                    <h1 ng-show="isAuthenticated"> WELL WELL WELL <BR>
-                        WE MEET AGAIN <br>
-                        MR.{{username|uppercase}}</h1>
-                </div>
-                    </div>
-
-                <div class="search">
-                    <div class="container-1">
-                        <div class="col-5">
-                            <input type="text" class="i-1" placeholder="Origin city">
-                            <input type="submit" value="0" class="s-1">
-                        </div>
-
-                        <div class="col-5">
-                            <input type="text" class="i-1" placeholder="Destination">
-                            <input type="submit" value="1" class="s-1">
-                        </div>
-
-                        <div class="col-5">
-                            <input type="date" class="i-1">
-                            <input type="submit" value="P" class="s-1">
-                        </div>
-
-                        <div class="col-5">
-                            <select class="se-1">
-                                <option> 1 </option>
-                                <option> 2 </option>
-                                <option> 3 </option>
-                                <option> 4 </option>
-                            </select>
-                            <input type="submit" value="Send" class="s-2">
-                        </div>
                     </div>
                 </div>
+                    </header>
+   
+                    <section class="about" ng-show="searching" ng-cloak>
+                        <h3>{{loading}}</h3>
+                        <div class="tableContainer">
+                        <table ng-repeat="line in data" ng-if="data != null" class="searchResultTable">        
+                            <thead>
+                            <th>Airline</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Seats</th>
+                            <th>Travel Time</th>
+                            <th>Price</th>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="f in line.flights">
+                                    <td>{{line.airline}}</td>
+                                    <td>{{f.origin}}</td>
+                                    <td>{{f.destination}}</td>
+                                    <td>{{f.date| date:"MM/dd/yyyy" }}</td>
+                                    <td>{{f.date| date:"h:mma" }}</td>
+                                    <td>{{f.numberOfSeats}}</td>
+                                    <td>{{f.traveltime}} Minutes</td>
+                                    <td>{{f.totalPrice| number:2}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </section>
+                    <div ng-show="!searching" ng-cloak>
+                        <section class="about" >
+                            <div class="title" data-sr="wait .2s, enter bottom, over .5s">
+                                <h1> Lorem ipsum dolor sit amet </h1>
+                            </div>
+                            <h2 data-sr="wait .4s, enter bottom, over .5s"> Nam ultrices pellentesque facilisis. In semper tellus mollis nisl pulvinar vitae vulputate lorem consequat. Fusce
+                                odio tortor, pretium sit amet auctor ut, ultrices vel nibh. Lorem ipsum dolor sit amet </h2>
+                        </section>
+                    </div>
+ 
+                <section class="blue">
+                    <div class="title-w" data-sr="wait .2s, enter bottom, over .5s">
+                        <h1> our service is easy to use </h1>
+                    </div>
+
+                    <div class="container-2">
+                        <div class="col-3" data-sr="wait .4s, enter bottom, over .5s">
+                            <div class="ico">
+                                4
+                            </div>
+                            <h1> 1- Submit your location </h1>
+                            <h1> </h1>
+                        </div>
+
+                        <div class="col-3" data-sr="wait .6s, enter bottom, over .5s">
+                            <div class="ico">
+                                1
+                            </div>
+                            <h1> 2- Choose your destination </h1>
+                            <h1> </h1>
+                        </div>
+
+                        <div class="col-3" data-sr="wait .8s, enter bottom, over .5s">
+                            <div class="ico">
+                                6
+                            </div>
+                            <h1> 3- Love our service </h1>
+                            <h1> </h1>
+                        </div>
+                    </div>
+                </section>
             </div>
-        </header>
-
-        <section class="about">
-            <div class="title" data-sr="wait .2s, enter bottom, over .5s">
-                <h1> Lorem ipsum dolor sit amet </h1>
-            </div>
-            <h2 data-sr="wait .4s, enter bottom, over .5s"> Nam ultrices pellentesque facilisis. In semper tellus mollis nisl pulvinar vitae vulputate lorem consequat. Fusce
-                odio tortor, pretium sit amet auctor ut, ultrices vel nibh. Lorem ipsum dolor sit amet </h2>
-        </section>
-
-        <section class="blue">
-            <div class="title-w" data-sr="wait .2s, enter bottom, over .5s">
-                <h1> our service is easy to use </h1>
-            </div>
-
-            <div class="container-2">
-                <div class="col-3" data-sr="wait .4s, enter bottom, over .5s">
-                    <div class="ico">
-                        4
-                    </div>
-                    <h1> 1- Submit your location </h1>
-                    <h1> </h1>
+            <section>
+                <div class="title" data-sr="wait .2s, enter bottom, over .5s">
+                    <h1>popular destinations</h1>
                 </div>
 
-                <div class="col-3" data-sr="wait .6s, enter bottom, over .5s">
-                    <div class="ico">
-                        1
-                    </div>
-                    <h1> 2- Choose your destination </h1>
-                    <h1> </h1>
-                </div>
-
-                <div class="col-3" data-sr="wait .8s, enter bottom, over .5s">
-                    <div class="ico">
-                        6
-                    </div>
-                    <h1> 3- Love our service </h1>
-                    <h1> </h1>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="title" data-sr="wait .2s, enter bottom, over .5s">
-                <h1>popular destinations</h1>
-            </div>
-
-            <div class="container-3" data-sr="wait .4s, enter bottom, over .5s">
-                <div class="col-4">
-                    <div class="pic">
-                        <div class="hov">
-                            <h1> New York </h1>
+                <div class="container-3" data-sr="wait .4s, enter bottom, over .5s">
+                    <div class="col-4">
+                        <div class="pic">
+                            <div class="hov">
+                                <h1> New York </h1>
+                            </div>
+                            <img src="img/city.jpg">
                         </div>
-                        <img src="img/city.jpg">
                     </div>
-                </div>
 
-                <div class="col-4">
-                    <div class="pic">
-                        <div class="hov">
-                            <h1> New York </h1>
+                    <div class="col-4">
+                        <div class="pic">
+                            <div class="hov">
+                                <h1> New York </h1>
+                            </div>
+                            <img src="img/city.jpg">
                         </div>
-                        <img src="img/city.jpg">
                     </div>
-                </div>
 
-                <div class="col-4">
-                    <div class="pic">
-                        <div class="hov">
-                            <h1> New York </h1>
+                    <div class="col-4">
+                        <div class="pic">
+                            <div class="hov">
+                                <h1> New York </h1>
+                            </div>
+                            <img src="img/city.jpg">
                         </div>
-                        <img src="img/city.jpg">
                     </div>
-                </div>
 
-                <div class="col-4">
-                    <div class="pic">
-                        <div class="hov">
-                            <h1> New York </h1>
+                    <div class="col-4">
+                        <div class="pic">
+                            <div class="hov">
+                                <h1> New York </h1>
+                            </div>
+                            <img src="img/city.jpg">
                         </div>
-                        <img src="img/city.jpg">
                     </div>
-                </div>
 
-                <div class="col-4">
-                    <div class="pic">
-                        <div class="hov">
-                            <h1> New York </h1>
+                    <div class="col-4">
+                        <div class="pic">
+                            <div class="hov">
+                                <h1> New York </h1>
+                            </div>
+                            <img src="img/city.jpg">
                         </div>
-                        <img src="img/city.jpg">
                     </div>
-                </div>
 
-                <div class="col-4">
-                    <div class="pic">
-                        <div class="hov">
-                            <h1> New York </h1>
+                    <div class="col-4">
+                        <div class="pic">
+                            <div class="hov">
+                                <h1> New York </h1>
+                            </div>
+                            <img src="img/city.jpg">
                         </div>
-                        <img src="img/city.jpg">
                     </div>
-                </div>
 
-                <div class="col-4">
-                    <div class="pic">
-                        <div class="hov">
-                            <h1> New York </h1>
+                    <div class="col-4">
+                        <div class="pic">
+                            <div class="hov">
+                                <h1> New York </h1>
+                            </div>
+                            <img src="img/city.jpg">
                         </div>
-                        <img src="img/city.jpg">
+                    </div>
+
+                    <div class="col-4">
+                        <div class="more">
+                            <a href="#"> + </a>
+                        </div>
                     </div>
                 </div>
-
-                <div class="col-4">
-                    <div class="more">
-                        <a href="#"> + </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+            </section>
+        </div>
         <footer>
             <div class="goto">
                 <div class="btn-top" id="gt"></div>
@@ -253,8 +293,8 @@
         <script src='js/scrollReveal.min.js'></script>
         <script>
 
-                                window.sr = new scrollReveal();
+                        window.sr = new scrollReveal();
 
         </script>
-    </body>
+</body>
 </html>

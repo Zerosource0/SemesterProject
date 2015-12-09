@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import deploy.DeploymentConfiguration;
 import entity.AirlinesUrl;
 import entity.Airport;
+import entity.Log;
 import exceptions.BadParameterException;
 import exceptions.NotFoundException;
 import static facades.smallTester.airlineUrls;
@@ -44,19 +45,26 @@ public class FlightSearchFacade {
 
     URL url;
     Gson gson = new Gson();
-
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
     public List<AirlinesUrl> airlineUrls;
     public ArrayList<String> results;
-    /*
-    private static final Properties properties = Utils.initProperties("server.properties");
+
+    public void log(String message){
     
-    public FlightSearchFacade(){
-        String logFile = properties.getProperty("logFile");
-        Utils.setLogFile(logFile, FlightSearchFacade.class.getName());
+        Log log = new Log(message);
+        
+        EntityManager em = emf.createEntityManager();
+        try{
+        em.getTransaction().begin();
+        em.persist(log);
+        em.getTransaction().commit();
+        }finally{
+        em.close();
+        }
     }
-    */
+    
     public List<AirlinesUrl> getAirlines() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
+        
 
         EntityManager em = emf.createEntityManager();
         return em.createQuery("Select a from AirlinesUrl a").getResultList();
@@ -101,7 +109,7 @@ public class FlightSearchFacade {
             }
 
         }
-        Logger.getLogger(FlightSearchFacade.class.getName()).log(Level.INFO, "User conducted search: from " + from + " date " + date + " seats " + seats);
+        log("User conducted search: from " + from + " date " + date + " seats " + seats);
         return results.toString();
 
     }
@@ -143,7 +151,7 @@ public class FlightSearchFacade {
             }
 
         }
-        Logger.getLogger(FlightSearchFacade.class.getName()).log(Level.INFO, "User conducted search: from " + from + " to " + to + " date " + date + " seats " + seats);
+        log("User conducted search: from " + from + " to " + to + " date " + date + " seats " + seats);
         return results.toString();
 
     }

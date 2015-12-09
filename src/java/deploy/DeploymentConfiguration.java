@@ -71,17 +71,31 @@ public class DeploymentConfiguration implements ServletContextListener {
         em.persist(both);
         em.getTransaction().commit();
       } finally {
-          persistDanishBank(em);
+          //persistDanishBank(em);
           persistAirports(em);
-       // em.close();
+          persistAirlines(em);
+        em.close();
       }
     } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) 
     {
       Logger.getLogger(DeploymentConfiguration.class.getName()).log(Level.SEVERE, null, ex);
     }
-    
-    
 
+  }
+  
+  private void persistAirlines(EntityManager em){
+      ArrayList<AirlinesUrl> airlines = new ArrayList<>();
+      
+      airlines.add(new AirlinesUrl("http://angularairline-plaul.rhcloud.com/"));
+      airlines.add(new AirlinesUrl("http://wildfly-x.cloudapp.net/airline/"));
+      airlines.add(new AirlinesUrl("http://timetravel-tocvfan.rhcloud.com/"));
+      
+        em.getTransaction().begin();
+            for (AirlinesUrl airline : airlines) {
+                em.persist(airline);
+            }
+        em.getTransaction().commit();
+      
   }
   
   private void persistAirports(EntityManager em){
@@ -113,15 +127,13 @@ public class DeploymentConfiguration implements ServletContextListener {
         ap.add(new Airport("HEM","Helsinki","Helsinki Malmi Airpor"));
         ap.add(new Airport("SIN","Singapore","Singapore Changi International Airport"));
   
-        try{
+        
         if (em.isOpen()) em.getTransaction().begin();
             for (Airport ap1 : ap) {
                 em.persist(ap1);
             }
         em.getTransaction().commit();
-        } finally {
-        em.close();
-        }
+        
         
   }
   

@@ -31,9 +31,12 @@ public class FlightResource {
     @Context
     private UriInfo context;
     
+    FlightSearchFacade facade;
+    
     Gson gson = new Gson();
    
     public FlightResource() {
+        facade = new FlightSearchFacade();
     }
 
  //String url = "http://angularairline-plaul.rhcloud.com/api/flightinfo/" + from + "/" + date + "/" + seats;
@@ -44,7 +47,6 @@ public class FlightResource {
     @Produces("application/json")
     public String getJsonFrom(@PathParam("from") String from, @PathParam("date") String date, @PathParam("seats") int seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
     {
-        FlightSearchFacade facade = new FlightSearchFacade();
 
         if(from.equals("")|| date.equals("")){
             throw new BadParameterException("Missing input or badly formatted");
@@ -67,7 +69,6 @@ public class FlightResource {
     @Produces("application/json")
     public String getJsonTo(@PathParam("from") String from, @PathParam("to") String to, @PathParam("date") String date, @PathParam("seats") int seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
     {
-        FlightSearchFacade facade = new FlightSearchFacade();
         
            if(from.equals("")|| to.equals("")|| date.equals("")){
              throw new BadParameterException("Missing input or badly formatted");

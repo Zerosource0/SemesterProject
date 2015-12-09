@@ -7,6 +7,9 @@ package facades;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import deploy.DeploymentConfiguration;
+import entity.AirlinesUrl;
+import entity.Airport;
 import exceptions.BadParameterException;
 import exceptions.NotFoundException;
 import static facades.smallTester.airlineUrls;
@@ -19,6 +22,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -27,6 +31,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 
 /**
  *
@@ -37,31 +45,42 @@ public class FlightSearchFacade {
     URL url;
     Gson gson = new Gson();
 
-    public ArrayList<String> airlineUrls;
+    public List<AirlinesUrl> airlineUrls;
     public ArrayList<String> results;
+    /*
+    private static final Properties properties = Utils.initProperties("server.properties");
+    
+    public FlightSearchFacade(){
+        String logFile = properties.getProperty("logFile");
+        Utils.setLogFile(logFile, FlightSearchFacade.class.getName());
+    }
+    */
+    public List<AirlinesUrl> getAirlines() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
+
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery("Select a from AirlinesUrl a").getResultList();
+
+    }
 
     public String getJsonFromAirlinesFrom(final String from, final String date, final Integer seats) {
-        //First get airlines from database: simulated here:
-        airlineUrls = new ArrayList<String>(); // should use a method to get airline urls from the DB instead of adding hardcoded like in this example;
-        airlineUrls.add("http://angularairline-plaul.rhcloud.com/");
-        airlineUrls.add("http://wildfly-x.cloudapp.net/airline/");
+       
+        airlineUrls = getAirlines();
+        
         results = new ArrayList<String>();
 
         List<Future<String>> list = new ArrayList<>();
-        
-//           if(from == null || date == null || seats==null ){
-//            throw new BadParameterException("Enter all necessary information");
-//        }
 
-        ExecutorService executor = Executors.newFixedThreadPool(8);
 
-        for (final String u : airlineUrls) {
+        ExecutorService executor = Executors.newFixedThreadPool(airlineUrls.size());
+
+        for (final AirlinesUrl u : airlineUrls) {
 
             Callable<String> task = new Callable<String>() {
                 @Override
                 public String call() throws Exception {
 
-                    return readMultipleFrom(u, from, date, seats);
+                    return readMultipleFrom(u.getAirlineUrl(), from, date, seats);
                 }
             };
             list.add(executor.submit(task));
@@ -82,29 +101,28 @@ public class FlightSearchFacade {
             }
 
         }
-
+        Logger.getLogger(FlightSearchFacade.class.getName()).log(Level.INFO, "User conducted search: from " + from + " date " + date + " seats " + seats);
         return results.toString();
 
     }
 
     public String getJsonFromAirlinesFromTo(final String from, final String to, final String date, final Integer seats) {
         //First get airlines from database: simulated here:
-        airlineUrls = new ArrayList<String>(); // should use a method to get airline urls from the DB instead of adding hardcoded like in this example;
-        airlineUrls.add("http://angularairline-plaul.rhcloud.com/");
-        airlineUrls.add("http://wildfly-x.cloudapp.net/airline/");
+        airlineUrls = getAirlines();
+
         results = new ArrayList<String>();
 
         List<Future<String>> list = new ArrayList<>();
 
-        ExecutorService executor = Executors.newFixedThreadPool(8);
+        ExecutorService executor = Executors.newFixedThreadPool(airlineUrls.size());
 
-        for (final String u : airlineUrls) {
+        for (final AirlinesUrl u : airlineUrls) {
 
             Callable<String> task = new Callable<String>() {
                 @Override
                 public String call() throws Exception {
 
-                    return readMultipleFromTo(u, from, to, date, seats);
+                    return readMultipleFromTo(u.getAirlineUrl(), from, to, date, seats);
                 }
             };
             list.add(executor.submit(task));
@@ -125,7 +143,7 @@ public class FlightSearchFacade {
             }
 
         }
-
+        Logger.getLogger(FlightSearchFacade.class.getName()).log(Level.INFO, "User conducted search: from " + from + " to " + to + " date " + date + " seats " + seats);
         return results.toString();
 
     }

@@ -119,7 +119,7 @@ public class FlightSearchFacade {
 
     }
     
-    public String getJsonFromSpecificAirlineFromTo(final String airline, final String from, final String to, final String date, final Integer seats) throws IOException{
+    public String getJsonFromSpecificAirlineFromTo(final String airline, final String from, final String to, final String date, final Integer seats) {
         results = new ArrayList<String>();
         
         AirlinesUrl air = new AirlinesUrl();
@@ -130,11 +130,15 @@ public class FlightSearchFacade {
             }
         }
         log("User conducted search: airline " + airline + " from " + from + " to " + to + " date " + date + " seats " + seats);
-        return readMultipleFromTo(air.getAirlineUrl(), from, to, date, seats);
-        
+        try {
+            return readMultipleFromTo(air.getAirlineUrl(), from, to, date, seats);
+        } catch (IOException ex) {
+            Logger.getLogger(FlightSearchFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
-    public String getJsonFromSpecificAirlineFrom(final String airline, final String from, final String date, final Integer seats) throws IOException{
+    public String getJsonFromSpecificAirlineFrom(final String airline, final String from, final String date, final Integer seats) {
         results = new ArrayList<String>();
         
         AirlinesUrl air = new AirlinesUrl();
@@ -145,8 +149,12 @@ public class FlightSearchFacade {
             }
         }
         log("User conducted search: airline " + airline + " from " + from + " date " + date + " seats " + seats);
-        return readMultipleFrom(air.getAirlineUrl(), from, date, seats);
-        
+        try {
+            return readMultipleFrom(air.getAirlineUrl(), from, date, seats);
+        } catch (IOException ex) {
+            Logger.getLogger(FlightSearchFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public String getJsonFromAirlinesFromTo(final String from, final String to, final String date, final Integer seats) {

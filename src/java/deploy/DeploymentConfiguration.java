@@ -51,7 +51,6 @@ public class DeploymentConfiguration implements ServletContextListener {
       User user = new User("user", PasswordHash.createHash("test"));
       User admin = new User("admin", PasswordHash.createHash("test"));
       User both = new User("user_admin", PasswordHash.createHash("test"));
-      AirlinesUrl aru = new AirlinesUrl("http://angularairline-plaul.rhcloud.com/");
       user.AddRole(userRole);
       admin.AddRole(adminRole);
       both.AddRole(userRole);
@@ -62,7 +61,6 @@ public class DeploymentConfiguration implements ServletContextListener {
         em.getTransaction().begin();
         em.persist(userRole);
         em.persist(adminRole);
-        em.persist(aru);
         
         
 
@@ -111,7 +109,7 @@ public class DeploymentConfiguration implements ServletContextListener {
         ap.add(new Airport("JFK","New York","John F Kennedy International"));
         ap.add(new Airport("HND","Tokyo","Tokyo International"));
         ap.add(new Airport("DME","Moscow","Domodedovo International"));
-        ap.add(new Airport("PEK","Beijing","Barcelona International"));
+        ap.add(new Airport("PEK","Beijing","Beijing International"));
         ap.add(new Airport("AMS","Amsterdam","Amsterdam Schiphol Airport"));
         ap.add(new Airport("IST","Istanbul","Istanbul Atatürk Airport"));
         ap.add(new Airport("GRU","São Paulo","São Paulo-Guarulhos International Airport"));

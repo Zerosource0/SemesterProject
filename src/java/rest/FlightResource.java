@@ -13,6 +13,7 @@ import facades.FlightSearchFacade;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -46,6 +47,7 @@ public class FlightResource {
     @GET
     @Path("/{airline}/{from}/{date}/{seats}")
     @Produces("application/json")
+    @Consumes("aaplication/json")
     public String getJsonFromSpecific(@PathParam("from") String airline, @PathParam("from") String from, @PathParam("date") String date, @PathParam("seats") int seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
     {
 

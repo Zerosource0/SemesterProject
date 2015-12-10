@@ -27,7 +27,7 @@ angular.module('myApp.security', [])
             $scope.isActive = function (viewLocation) {
                 return viewLocation === $location.path();
             };
-
+            $scope.loggingIn = false;
             $scope.title = "Morondo";
             $scope.username = "";
             $scope.isAuthenticated = false;
@@ -35,6 +35,10 @@ angular.module('myApp.security', [])
             $scope.isUser = false;
             $scope.message = '';
             $scope.error = null;
+            
+            $scope.loginPrompt = function(){
+                $scope.loggingIn = true;
+            };
 
             $scope.login = function () {
                 $http
@@ -70,6 +74,7 @@ angular.module('myApp.security', [])
             };
 
             $rootScope.logout = function () {
+                $scope.loggingIn = false;
                 $scope.isAuthenticated = false;
                 $scope.isAdmin = false;
                 $scope.isUser = false;

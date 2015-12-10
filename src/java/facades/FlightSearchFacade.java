@@ -49,6 +49,12 @@ public class FlightSearchFacade {
     public List<AirlinesUrl> airlineUrls;
     public ArrayList<String> results;
 
+    public FlightSearchFacade() {
+        airlineUrls = getAirlines();
+    }
+
+    
+    
     public void log(String message){
     
         Log log = new Log(message);
@@ -65,7 +71,6 @@ public class FlightSearchFacade {
     
     public List<AirlinesUrl> getAirlines() {
         
-
         EntityManager em = emf.createEntityManager();
         return em.createQuery("Select a from AirlinesUrl a").getResultList();
 
@@ -73,7 +78,7 @@ public class FlightSearchFacade {
 
     public String getJsonFromAirlinesFrom(final String from, final String date, final Integer seats) {
        
-        airlineUrls = getAirlines();
+        
         
         results = new ArrayList<String>();
 
@@ -113,10 +118,40 @@ public class FlightSearchFacade {
         return results.toString();
 
     }
+    
+    public String getJsonFromSpecificAirlineFromTo(final String airline, final String from, final String to, final String date, final Integer seats) throws IOException{
+        results = new ArrayList<String>();
+        
+        AirlinesUrl air = new AirlinesUrl();
+        
+        for (AirlinesUrl airlineUrl : airlineUrls) {
+            if(airlineUrl.getName().equals(airline)){
+                air = airlineUrl;
+            }
+        }
+        log("User conducted search: airline " + airline + " from " + from + " to " + to + " date " + date + " seats " + seats);
+        return readMultipleFromTo(air.getAirlineUrl(), from, to, date, seats);
+        
+    }
+    
+    public String getJsonFromSpecificAirlineFrom(final String airline, final String from, final String date, final Integer seats) throws IOException{
+        results = new ArrayList<String>();
+        
+        AirlinesUrl air = new AirlinesUrl();
+        
+        for (AirlinesUrl airlineUrl : airlineUrls) {
+            if(airlineUrl.getName().equals(airline)){
+                air = airlineUrl;
+            }
+        }
+        log("User conducted search: airline " + airline + " from " + from + " date " + date + " seats " + seats);
+        return readMultipleFrom(air.getAirlineUrl(), from, date, seats);
+        
+    }
 
     public String getJsonFromAirlinesFromTo(final String from, final String to, final String date, final Integer seats) {
         //First get airlines from database: simulated here:
-        airlineUrls = getAirlines();
+        
 
         results = new ArrayList<String>();
 

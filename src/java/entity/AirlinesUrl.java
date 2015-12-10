@@ -44,6 +44,8 @@ public class AirlinesUrl implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "airline_url")
     private String airlineUrl;
+    
+    private String name;
 
     public AirlinesUrl() {
     }
@@ -53,13 +55,15 @@ public class AirlinesUrl implements Serializable {
         this.airlineUrl=url;
     }
 
-    public AirlinesUrl(Integer id) {
-        this.id = id;
-    }
 
-    public AirlinesUrl(Integer id, String airlineUrl) {
+    public AirlinesUrl(String airlineUrl, String name) {
         this.id = id;
         this.airlineUrl = airlineUrl;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Integer getId() {

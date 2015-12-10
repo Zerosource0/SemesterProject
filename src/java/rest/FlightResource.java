@@ -42,6 +42,53 @@ public class FlightResource {
  //String url = "http://angularairline-plaul.rhcloud.com/api/flightinfo/" + from + "/" + date + "/" + seats;
         //for each ariline do this;
     
+    
+    @GET
+    @Path("/{airline}/{from}/{date}/{seats}")
+    @Produces("application/json")
+    public String getJsonFromSpecific(@PathParam("from") String airline, @PathParam("from") String from, @PathParam("date") String date, @PathParam("seats") int seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
+    {
+
+        if(from.equals("")|| date.equals("")){
+            throw new BadParameterException("Missing input or badly formatted");
+        }
+        if(seats<=0){
+            throw new BadParameterException("Select a number of seats");
+        }
+        
+        String result = facade.getJsonFromSpecificAirlineFrom(airline, from, date, seats);
+        
+        
+        if(result.contains("httpError")){
+            throw new NotFoundException("No flights available");
+        }
+        
+        return result;
+    }
+    
+    @GET
+    @Path("/{airline}/{from}/{to}/{date}/{seats}")
+    @Produces("application/json")
+    public String getJsonFromSpecificTo(@PathParam("from") String airline, @PathParam("from") String from, @PathParam("to") String to, @PathParam("date") String date, @PathParam("seats") int seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
+    {
+
+        if(from.equals("")|| date.equals("")){
+            throw new BadParameterException("Missing input or badly formatted");
+        }
+        if(seats<=0){
+            throw new BadParameterException("Select a number of seats");
+        }
+        
+        String result = facade.getJsonFromSpecificAirlineFromTo(airline, from, to, date, seats);
+        
+        
+        if(result.contains("httpError")){
+            throw new NotFoundException("No flights available");
+        }
+        
+        return result;
+    }
+    
     @GET
     @Path("/{from}/{date}/{seats}")
     @Produces("application/json")
@@ -64,6 +111,7 @@ public class FlightResource {
         
         return result;
     }
+    
     @GET
     @Path("/{from}/{to}/{date}/{seats}")
     @Produces("application/json")

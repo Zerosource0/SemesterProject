@@ -86,9 +86,9 @@ public class DeploymentConfiguration implements ServletContextListener {
   private void persistAirlines(EntityManager em){
       ArrayList<AirlinesUrl> airlines = new ArrayList<>();
       
-      airlines.add(new AirlinesUrl("http://angularairline-plaul.rhcloud.com/"));
-      airlines.add(new AirlinesUrl("http://wildfly-x.cloudapp.net/airline/"));
-      airlines.add(new AirlinesUrl("http://timetravel-tocvfan.rhcloud.com/"));
+      airlines.add(new AirlinesUrl("http://angularairline-plaul.rhcloud.com/","Angular Airline"));
+      airlines.add(new AirlinesUrl("http://wildfly-x.cloudapp.net/airline/","CosGroup2Airline"));
+      airlines.add(new AirlinesUrl("http://timetravel-tocvfan.rhcloud.com/","Time Travel Airline"));
       
         em.getTransaction().begin();
             for (AirlinesUrl airline : airlines) {

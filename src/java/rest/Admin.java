@@ -61,7 +61,7 @@ public class Admin {
   @Consumes(MediaType.APPLICATION_JSON)
   @Path("/users/{id}")
   public String deleteUser(@PathParam("id") String id){
-      facade = new UserFacade();
+      facade = UserFacade.getInstance();
       User user = facade.getUserByUserId(id);
       JsonObject json = new JsonObject();
       json.addProperty("userName", user.getUserName());

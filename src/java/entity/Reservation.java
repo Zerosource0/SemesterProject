@@ -7,11 +7,15 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import org.eclipse.persistence.jpa.config.Cascade;
 
 /**
  *
@@ -52,12 +56,15 @@ public class Reservation implements Serializable {
     private String origin;
     
     private String destination;
+    
+    @OneToMany (cascade = CascadeType.ALL)
+    private List<Passenger> passengers;
 
     public Reservation() {
     }
 
-    public Reservation(User user,String airline, String flightID, String flightDate, int numberOfSeats, int travelTime, int totalPrice, String origin, String destination) {
-        this.user=user;
+    public Reservation(User user, String airline, String flightID, String flightDate, int numberOfSeats, int travelTime, int totalPrice, String origin, String destination, List<Passenger> passengers) {
+        this.user = user;
         this.airline = airline;
         this.flightID = flightID;
         this.flightDate = flightDate;
@@ -66,7 +73,10 @@ public class Reservation implements Serializable {
         this.totalPrice = totalPrice;
         this.origin = origin;
         this.destination = destination;
+        this.passengers = passengers;
     }
+
+    
 
     public Long getId() {
         return id;
@@ -135,11 +145,17 @@ public class Reservation implements Serializable {
     public void setDestination(String destination) {
         this.destination = destination;
     }
-    
+
+    public List<Passenger> getPassengers() {
+        return passengers;
+    }
+
     @Override
     public String toString() {
-        return "Reservation{" + "id=" + id + ", user=" + user + ", airline=" + airline + ", flightID=" + flightID + ", flightDate=" + flightDate + ", numberOfSeats=" + numberOfSeats + ", travelTime=" + travelTime + ", totalPrice=" + totalPrice + ", origin=" + origin + ", destination=" + destination + '}';
+        return "Reservation{" + "id=" + id + ", user=" + user + ", airline=" + airline + ", flightID=" + flightID + ", flightDate=" + flightDate + ", numberOfSeats=" + numberOfSeats + ", travelTime=" + travelTime + ", totalPrice=" + totalPrice + ", origin=" + origin + ", destination=" + destination + ", passengers=" + passengers + '}';
     }
+    
+    
     
     
     

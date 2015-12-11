@@ -60,7 +60,7 @@ public class NewUserResource {
     }
     
     JsonObject responseJson = new JsonObject();
-    UserFacade uf = new UserFacade();
+    UserFacade uf = UserFacade.getInstance();
     boolean addUser = uf.newUser(username, password, role, firstName, lastName, email, phone);
     
     if(addUser){

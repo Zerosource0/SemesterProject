@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  */
 public class BackEndTest {
     
-    UserFacade uf = new UserFacade();
+    UserFacade uf = UserFacade.getInstance();
     
     public BackEndTest() {
         

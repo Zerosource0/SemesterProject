@@ -22,6 +22,7 @@ public class ApplicationConfig extends Application {
    */
   private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(rest.Admin.class);
+        resources.add(rest.AirlineResource.class);
         resources.add(rest.AirportResource.class);
         resources.add(rest.FlightResource.class);
         resources.add(rest.NewUserResource.class);

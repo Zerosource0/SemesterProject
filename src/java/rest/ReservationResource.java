@@ -9,10 +9,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.nimbusds.jose.JOSEException;
+import entity.Passenger;
+import entity.Reservation;
 import entity.User;
 import exceptions.BadParameterException;
 import facades.ReservationFacade;
 import facades.UserFacade;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -33,7 +37,7 @@ import javax.ws.rs.core.Response;
 @Path("reservation")
 public class ReservationResource {
     private ReservationFacade rf = new ReservationFacade();
-    private UserFacade uf = new UserFacade();
+    private UserFacade uf;
     @Context
     private UriInfo context;
     
@@ -41,6 +45,7 @@ public class ReservationResource {
      * Creates a new instance of ReservationResource
      */
     public ReservationResource() {
+        uf = UserFacade.getInstance();
     }
 
     /**
@@ -57,7 +62,7 @@ public class ReservationResource {
 
     
   @POST
-  @Path("/{airline}/{flightID}/{flightDate}/{numberOfSeats}/{travelTime}/{totalPrice}/{origin}/{destination}")
+  @Path("/{airline}/{flightID}/{flightDate}/{numberOfSeats}/{travelTime}/{totalPrice}/{origin}/{destination}/{passengers}")
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public String newReservation(
@@ -69,36 +74,32 @@ public class ReservationResource {
           @PathParam("totalPrice") Integer totalPrice,
           @PathParam("origin") String origin,
           @PathParam("destination") String destination,
-          @PathParam("flightDate") String from) throws JOSEException 
+          @PathParam("flightDate") String from, 
+          @PathParam("passengers") String passengers) throws JOSEException 
   {
-    
-    
-    
-    
-    
+
     if(flightDate.equals("")|| numberOfSeats<=0){
         throw new BadParameterException("Make sure you enter something");
     }
     
     ReservationFacade rf = new ReservationFacade();
-    User u;
-    Boolean exists=false;
-    if (uf.getUserByUserId("user1")==null) u = new User("user1", "test");
-    else 
-    {
-        exists=true;
-        u=uf.getUserByUserId("user1");
+    
+    User user = uf.getCurrentUser();
+    if(user!=null){
+    
+    List<Passenger> passengerList = new ArrayList<>();
+    
+    String[] split = passengers.split(",");
+    
+      for (String s : split) {
+          String[] a = s.split("-");
+          passengerList.add(new Passenger(a[0],a[1]));
+      }
+    
+    String response = rf.reserve(user, airline, flightID, flightDate, numberOfSeats, travelTime, totalPrice, origin, destination, passengerList);
+    
+    return response;
     }
-    
-    Boolean sucess=rf.newReservation(exists, u, airline, flightID, flightDate, numberOfSeats, travelTime, totalPrice, origin, destination);
-    
-    if(sucess){
-        System.out.println("good");
-        return "it's ok";
-    } else{ 
-         System.out.println("bad");
-         return "it's not ok";
-    }
-    
+    throw new BadParameterException("Make sure you are logged in!" + user);
   }
 }

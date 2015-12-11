@@ -54,7 +54,6 @@ public class FlightSearchFacade {
     }
 
     
-    
     public void log(String message){
     
         Log log = new Log(message);

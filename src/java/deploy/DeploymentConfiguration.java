@@ -2,8 +2,6 @@ package deploy;
 
 import entity.AirlinesUrl;
 import entity.Airport;
-import entity.Currdesc;
-import entity.Currvalues;
 import entity.Role;
 import entity.User;
 import java.security.NoSuchAlgorithmException;
@@ -133,50 +131,6 @@ public class DeploymentConfiguration implements ServletContextListener {
         em.getTransaction().commit();
         
         
-  }
-  
-  private void persistDanishBank (EntityManager em)
-  {
-    Currdesc currdesc = new Currdesc();
-    Currvalues currvalue = new Currvalues();
-    BankXmlReader bxr = new BankXmlReader();
-    String[][] resultSet = bxr.getResults();
-    try
-    {
-        em.getTransaction().begin();
-        for (int i=0;i<resultSet.length;i++)
-        {
-            try
-            {
-            currdesc = new Currdesc(resultSet[i][bxr.indexOfcode()],resultSet[i][bxr.indexOfdesc()]);
-            currvalue= new Currvalues(resultSet[i][bxr.indexOfdate()],
-                    Float.parseFloat(resultSet[i][bxr.indexOfvalue()]), currdesc);
-            currdesc.addCurrValue(currvalue);
-            System.out.println(currdesc.toString());
-            System.out.println(currvalue.toString());
-            em.persist(currdesc);
-            em.persist(currvalue);
-            }
-            catch (Exception e)
-            {
-                System.out.println("hey");
-                continue;
-            }
-            
-            
-            
-            
-           // System.out.println(i+" "+currdesc.getCode());
-        }
-        em.getTransaction().commit();
-    }
-    
-    catch (Exception e)
-    {
-        //      Currdesc currdesc = new Currdesc("PLN", "Polska waluta");
-//      Currvalues currvalue = new Currvalues("24-05-1995", (56.34), currdesc);
-        e.printStackTrace();
-    }
   }
 
   @Override

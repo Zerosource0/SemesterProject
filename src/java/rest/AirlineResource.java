@@ -40,7 +40,7 @@ public class AirlineResource {
      * Creates a new instance of AirlineResource
      */
     public AirlineResource() {
-        facade =  new FlightSearchFacade();
+        facade = new FlightSearchFacade();
     }
 
     /**
@@ -62,10 +62,10 @@ public class AirlineResource {
     }
 
     @GET
-    @Path("/{from}/{date}/{seats}")
+    @Path("/{airline}/{from}/{date}/{seats}")
     @Produces("application/json")
     @Consumes("aaplication/json")
-    public String getJsonFromSpecific(@PathParam("from") String airline, @PathParam("from") String from, @PathParam("date") String date, @PathParam("seats") int seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
+    public String getJsonFromSpecific(@PathParam("airline") String airline, @PathParam("from") String from, @PathParam("date") String date, @PathParam("seats") int seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
     {
 
         if(from.equals("")|| date.equals("")){
@@ -86,9 +86,9 @@ public class AirlineResource {
     }
     
     @GET
-    @Path("/{from}/{to}/{date}/{seats}")
+    @Path("/{airline}/{from}/{to}/{date}/{seats}")
     @Produces("application/json")
-    public String getJsonFromSpecificTo(@PathParam("from") String airline, @PathParam("from") String from, @PathParam("to") String to, @PathParam("date") String date, @PathParam("seats") int seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
+    public String getJsonFromSpecificTo(@PathParam("airline") String airline, @PathParam("from") String from, @PathParam("to") String to, @PathParam("date") String date, @PathParam("seats") int seats) throws UnsupportedEncodingException, MalformedURLException, IOException 
     {
 
         if(from.equals("")|| date.equals("")){

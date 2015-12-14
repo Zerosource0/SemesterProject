@@ -81,7 +81,7 @@ public class ReservationFacade {
         String url = null;
 
         for (AirlinesUrl airline1 : airlines) {
-            if (airline1.equals(airline)) {
+            if (airline1.getName().equals(airline)) {
                 url = airline1.getAirlineUrl();
             }
         }

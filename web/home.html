@@ -174,34 +174,34 @@
             </section>
         </div>
         
-        <div  ng-cloak ng-show="!booking">
+        <div  ng-cloak ng-show="booking">
             <section class="about" >
 
               <div style="text-align: center;">
                 <form>
                     <h2>Booking Passenger</h2>
                     <br>
-                    First Name: <input type="text">
+                    First Name: <input type="text" ng-model="passengers.person[0].firstName">
                     <br>
-                    Last Name: <input type="text">
+                    Last Name: <input type="text" ng-model="passengers.person[0].lastName">
                     <br>
                     Email: <input type="text">
                         <br>
                         <br>
-                        <div ng-show="!extraPassengers">
+                        <div ng-show="extraPassengers">
                     <h2>Additional Passengers</h2>
                     <br>
                     <div ng-repeat="s in seatAmount($scope.seats) track by $index" >
                         <h3 style="color: graytext;">Passenger {{$index+1}}</h3>
-                        First Name: <input type="text" ng-model="passengers.firstName[$index]">
+                        First Name: <input type="text" ng-model="passengers.person[$index+1].firstName">
                         <br>
-                        Last Name: <input type="text" ng-model="passengers.lastName[$index]">
+                        Last Name: <input type="text" ng-model="passengers.person[$index+1].lastName">
                         <br>
                         <br>
                     </div>
                     <br>
                         <br>
-                    <button  style="text-align: center;" class="s-3" ng-click="reserveFlightTickets(); passengerFormatter()">Book</button>
+                    <button  style="text-align: center;" class="s-3" ng-click="passengerFormatter(); reserveFlightTickets()">Book</button>
                     </div>
                 </form>
               </div>

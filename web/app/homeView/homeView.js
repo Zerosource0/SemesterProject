@@ -13,6 +13,7 @@ angular.module('myApp.homeView', ['ngRoute'])
         .controller('homeViewCtrl', ['$http', '$scope', '$filter', function ($http, $scope, $filter) {
                 $scope.searching = false;
                 var seats = 1;
+                var passengerString="";
                 $scope.passengers = {};
 
                 $http({
@@ -44,32 +45,37 @@ angular.module('myApp.homeView', ['ngRoute'])
 
                 };
                 $scope.getData = {};
-                $scope.dataProcessor = function(){
-                    console.log($scope.getData.line);
-                    console.log($scope.getData.flights);
-                }
                 
                $scope.passengerFormatter = function(){
-                    var finalString="";
-                    angular.forEach($scope.passengers, function(value, key){
-                        finalString = finalString +value.firstName()+"-"+value.lastName();
-                    })
-                    console.log(finalString);
-                }
+                    
+                    var count = parseInt(1);
+                    angular.forEach($scope.passengers.person, function(value, key){
+                        passengerString = passengerString + value.firstName +"-"+ value.lastName;
+                        if(parseInt(count)!==parseInt(seats)){
+                            passengerString = passengerString +",";
+                            count++;
+                        }else{
+                            passengerString;
+                        }
+                      });
+                };
                 
                 $scope.reserveFlightTickets = function(){
-                    console.log($scope.passengers);
-                    console.log("airline"+$scope.getData.line.airline);
-                    console.log("flightId"+$scope.getData.flight.totalPrice);
-                    $http.post("api/reservation/" + $scope.getData.line.airline + "/" + $scope.getData.flight.flightID 
-                            + "/" + $scope.getData.flight.flightDate + "/" + seats + "/" + $scope.getData.flight.travelTime
+                    console.log("api/reservation/" + $scope.getData.line.airline + "/" + $scope.getData.flight.flightID 
+                            + "/" + $scope.getData.flight.date + "/" + seats + "/" + $scope.getData.flight.traveltime
                             + "/" + $scope.getData.flight.totalPrice + "/" + $scope.getData.flight.origin + "/" 
-                            + $scope.getData.flight.destination + "/" + $scope.getData.passengers)
+                            + $scope.getData.flight.destination + "/" + passengerString);
+                    $http.post("api/reservation/" + $scope.getData.line.airline + "/" + $scope.getData.flight.flightID 
+                            + "/" + $scope.getData.flight.date + "/" + seats + "/" + $scope.getData.flight.traveltime
+                            + "/" + $scope.getData.flight.totalPrice + "/" + $scope.getData.flight.origin + "/" 
+                            + $scope.getData.flight.destination + "/" + passengerString)
                             .success(function (data, status) {
                                 if (status != 200) {
+                                    console.log("failed: " +status)
                                     $scope.toException = data;
                                     $scope.loading = "";
                                 } else {
+                                    console.log("success: " +data)
                                     $scope.loading = "";
                                     $scope.data = data;
                                 }
@@ -77,8 +83,6 @@ angular.module('myApp.homeView', ['ngRoute'])
 
                     });
                 }
-
-                http://localhost:8080/semesterSeedSP/api/reservation/testAirline/COL2216x100x2016-02-01T15:00:00.000Z/2016-02-01T15:00:00.000Z/2/90/100/CPH/SXF/Marc-Jesse,Adam-Lewandowski
 
                         $scope.seatAmount = function () {
                             console.log("seats" + seats);

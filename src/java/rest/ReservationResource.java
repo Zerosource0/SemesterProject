@@ -77,6 +77,10 @@ public class ReservationResource {
           @PathParam("flightDate") String from, 
           @PathParam("passengers") String passengers) throws JOSEException 
   {
+<<<<<<< Updated upstream
+=======
+    
+>>>>>>> Stashed changes
 
     if(flightDate.equals("")|| numberOfSeats<=0){
         throw new BadParameterException("Make sure you enter something");

@@ -74,10 +74,17 @@ angular.module('myApp.homeView', ['ngRoute'])
                                     console.log("failed: " +status)
                                     $scope.toException = data;
                                     $scope.loading = "";
+                                    $scope.completionMessage ="failure"
                                 } else {
                                     console.log("success: " +data)
                                     $scope.loading = "";
                                     $scope.data = data;
+                                    $scope.booking = false;
+                                    $scope.searching = false;
+                                    $scope.extraPassengers = false;
+                                    $scope.bookingComplete = true;
+                                    $scope.completionMessage = "Booking complete! For "+seats+"passengers, from "+ $scope.getData.flight.origin+" to " +" $scope.getData.flight.destination"
+                                    + "on the " + $scope.getData.flight.date;
                                 }
                             }).error(function (data, status) {
 

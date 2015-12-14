@@ -37,7 +37,7 @@ public class FlightResource {
     Gson gson = new Gson();
    
     public FlightResource() {
-        facade = new FlightSearchFacade();
+        facade = FlightSearchFacade.getInstance();
     }
 
  //String url = "http://angularairline-plaul.rhcloud.com/api/flightinfo/" + from + "/" + date + "/" + seats;

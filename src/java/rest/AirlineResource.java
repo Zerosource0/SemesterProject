@@ -40,7 +40,7 @@ public class AirlineResource {
      * Creates a new instance of AirlineResource
      */
     public AirlineResource() {
-        facade = new FlightSearchFacade();
+        facade = FlightSearchFacade.getInstance();
     }
 
     /**

@@ -40,6 +40,8 @@ public class ReservationFacade {
 
     Gson gson = new Gson();
 
+    
+    
     public ReservationFacade() {
 
     }
@@ -48,7 +50,7 @@ public class ReservationFacade {
         this.currentUser = currentUser;
     }
 
-    public String reserve(User user, String airline, String flightId, String flightDate, int numberOfSeats, int travelTime, int totalPrice, String origin, String destination, List<Passenger> passengersl) {
+    public String reserve(User user, String airline, String flightId, String flightDate, Integer numberOfSeats, int travelTime, int totalPrice, String origin, String destination, List<Passenger> passengersl) {
 
         EntityManager em = emf.createEntityManager();
 
@@ -75,23 +77,23 @@ public class ReservationFacade {
 
     public String reserveAirline(User user, String airline, String flightId, int numberOfSeats, List<Passenger> passengersl) throws MalformedURLException, IOException {
 
-        FlightSearchFacade fsf = new FlightSearchFacade();
+        FlightSearchFacade fsf = FlightSearchFacade.getInstance();
         List<AirlinesUrl> airlines = fsf.airlineUrls;
 
         String url = null;
 
         for (AirlinesUrl airline1 : airlines) {
             if (airline1.getName().equals(airline)) {
-                url = airline1.getAirlineUrl();
+                url = airline1.getAirlineUrl() + "api/flightreservation";
             }
         }
 
         JsonObject jsonObj = new JsonObject();
         jsonObj.addProperty("flightID", flightId);
         jsonObj.addProperty("numberOfSeats", numberOfSeats);
-        jsonObj.addProperty("reserveeName", user.getFirstName() + " " + user.getLastName());
-        jsonObj.addProperty("reserveePhone", user.getPhone());
-        jsonObj.addProperty("reserveeEmail", user.getEmail());
+        jsonObj.addProperty("ReserveeName", user.getFirstName() + " " + user.getLastName());
+        jsonObj.addProperty("ReserveePhone", user.getPhone());
+        jsonObj.addProperty("ReserveeEmail", user.getEmail());
 
         JsonArray passengers = new JsonArray();
         for (Passenger p : passengersl) {
@@ -100,7 +102,7 @@ public class ReservationFacade {
             j.addProperty("lastName", p.getLastName());
             passengers.add(j);
         }
-        jsonObj.add("passengers", passengers);
+        jsonObj.add("Passengers", passengers);
 
         String transformedJson = gson.toJson(jsonObj);
 

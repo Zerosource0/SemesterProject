@@ -48,18 +48,6 @@ public class ReservationResource {
         uf = UserFacade.getInstance();
     }
 
-    /**
-     * Retrieves representation of an instance of rest.ReservationResource
-     * @return an instance of java.lang.String
-     */
-    @GET
-    //@Path("/{airline}/{flightID}/{flightDate}/{numberOfSeats}/{travelTime}/{totalPrice}/{origin}/{destination}")
-    @Produces("application/json")
-    public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
-
     
   @POST
   @Path("/{airline}/{flightID}/{flightDate}/{numberOfSeats}/{travelTime}/{totalPrice}/{origin}/{destination}/{passengers}")

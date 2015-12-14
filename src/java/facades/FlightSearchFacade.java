@@ -53,6 +53,14 @@ public class FlightSearchFacade {
         airlineUrls = getAirlines();
     }
 
+    private static FlightSearchFacade instance = null;
+    
+    public static FlightSearchFacade getInstance() {
+      if(instance == null) {
+         instance = new FlightSearchFacade();
+      }
+      return instance;
+   }
     
     public void log(String message){
     

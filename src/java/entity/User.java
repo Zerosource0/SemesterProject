@@ -68,6 +68,12 @@ public class User implements Serializable {
   {
       reservations.add(r);
   }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+  
+  
     
   public List<Role> getRoles() {
    return roles;

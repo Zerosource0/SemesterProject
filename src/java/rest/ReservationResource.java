@@ -6,6 +6,8 @@
 package rest;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.nimbusds.jose.JOSEException;
@@ -36,11 +38,14 @@ import javax.ws.rs.core.Response;
  */
 @Path("reservation")
 public class ReservationResource {
+
     private ReservationFacade rf = new ReservationFacade();
     private UserFacade uf;
     @Context
     private UriInfo context;
-    
+
+    Gson gson = new Gson();
+
     /**
      * Creates a new instance of ReservationResource
      */
@@ -48,47 +53,117 @@ public class ReservationResource {
         uf = UserFacade.getInstance();
     }
 
-    
-  @POST
-  @Path("/{airline}/{flightID}/{flightDate}/{numberOfSeats}/{travelTime}/{totalPrice}/{origin}/{destination}/{passengers}")
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  public String newReservation(
-          @PathParam("airline") String airline,
-          @PathParam("flightID") String flightID,
-          @PathParam("flightDate") String flightDate,
-          @PathParam("numberOfSeats") Integer numberOfSeats,
-          @PathParam("travelTime") Integer travelTime,
-          @PathParam("totalPrice") Integer totalPrice,
-          @PathParam("origin") String origin,
-          @PathParam("destination") String destination,
-          @PathParam("flightDate") String from, 
-          @PathParam("passengers") String passengers) throws JOSEException 
-  {
+    @GET
+    @Path("/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllReservations() {
 
+        List<User> users = uf.getUsers();
 
-    if(flightDate.equals("")|| numberOfSeats<=0){
-        throw new BadParameterException("Make sure you enter something");
+        JsonObject userJObject = new JsonObject();
+
+        for (User user : users) {
+
+            List<Reservation> reservations = user.getReservations();
+
+            JsonArray jArray = new JsonArray();
+
+            for (Reservation r : reservations) {
+                JsonObject json = new JsonObject();
+                json.addProperty("flightID", r.getFlightID());
+                json.addProperty("flightDate", r.getFlightDate());
+                json.addProperty("origin", r.getOrigin());
+                json.addProperty("destination", r.getDestination());
+                json.addProperty("reserveeName", user.getFirstName() + " " + user.getLastName());
+
+                JsonArray passengers = new JsonArray();
+
+                for (Passenger passenger : r.getPassengers()) {
+                    JsonObject p = new JsonObject();
+                    p.addProperty("firstName", passenger.getFirstName());
+                    p.addProperty("lastName", passenger.getLastName());
+                    passengers.add(p);
+                }
+                json.add("passengers", passengers);
+                jArray.add(json);
+            }
+            userJObject.addProperty("user", user.getFirstName() + " " + user.getLastName());
+            userJObject.add("reservations",jArray);
+        }
+        return gson.toJson(userJObject);
     }
-    
-    ReservationFacade rf = new ReservationFacade();
-    
-    User user = uf.getCurrentUser();
-    if(user!=null){
-    
-    List<Passenger> passengerList = new ArrayList<>();
-    
-    String[] split = passengers.split(",");
-    
-      for (String s : split) {
-          String[] a = s.split("-");
-          passengerList.add(new Passenger(a[0],a[1]));
-      }
-    
-    String response = rf.reserve(user, airline, flightID, flightDate, numberOfSeats, travelTime, totalPrice, origin, destination, passengerList);
-    
-    return response;
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getReservationsByUser() {
+
+        User user = uf.getCurrentUser();
+
+        List<Reservation> reservations = user.getReservations();
+
+        JsonArray jArray = new JsonArray();
+
+        for (Reservation r : reservations) {
+            JsonObject json = new JsonObject();
+            json.addProperty("flightID", r.getFlightID());
+            json.addProperty("flightDate", r.getFlightDate());
+            json.addProperty("origin", r.getOrigin());
+            json.addProperty("destination", r.getDestination());
+            json.addProperty("reserveeName", user.getFirstName() + " " + user.getLastName());
+
+            JsonArray passengers = new JsonArray();
+
+            for (Passenger passenger : r.getPassengers()) {
+                JsonObject p = new JsonObject();
+                p.addProperty("firstName", passenger.getFirstName());
+                p.addProperty("lastName", passenger.getLastName());
+                passengers.add(p);
+            }
+            json.add("passengers", passengers);
+            jArray.add(json);
+        }
+
+        return gson.toJson(jArray);
     }
-    throw new BadParameterException("Make sure you are logged in!" + user);
-  }
+
+    @POST
+    @Path("/{airline}/{flightID}/{flightDate}/{numberOfSeats}/{travelTime}/{totalPrice}/{origin}/{destination}/{passengers}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String newReservation(
+            @PathParam("airline") String airline,
+            @PathParam("flightID") String flightID,
+            @PathParam("flightDate") String flightDate,
+            @PathParam("numberOfSeats") Integer numberOfSeats,
+            @PathParam("travelTime") Integer travelTime,
+            @PathParam("totalPrice") Integer totalPrice,
+            @PathParam("origin") String origin,
+            @PathParam("destination") String destination,
+            @PathParam("flightDate") String from,
+            @PathParam("passengers") String passengers) throws JOSEException {
+
+        if (flightDate.equals("") || numberOfSeats <= 0) {
+            throw new BadParameterException("Make sure you enter something");
+        }
+
+        ReservationFacade rf = new ReservationFacade();
+
+        User user = uf.getCurrentUser();
+        if (user != null) {
+
+            List<Passenger> passengerList = new ArrayList<>();
+
+            String[] split = passengers.split(",");
+
+            for (String s : split) {
+                String[] a = s.split("-");
+                passengerList.add(new Passenger(a[0], a[1]));
+            }
+
+            String response = rf.reserve(user, airline, flightID, flightDate, numberOfSeats, travelTime, totalPrice, origin, destination, passengerList);
+
+            return response;
+        }
+        throw new BadParameterException("Make sure you are logged in!" + user);
+    }
 }

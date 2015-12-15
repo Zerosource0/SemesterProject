@@ -41,12 +41,12 @@ import javax.persistence.Persistence;
  *
  * @author Adam
  */
-public class FlightSearchFacade {
+public final class FlightSearchFacade {
 
     URL url;
     Gson gson = new Gson();
     EntityManagerFactory emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
-    public List<AirlinesUrl> airlineUrls;
+    public static List<AirlinesUrl> airlineUrls;
     public ArrayList<String> results;
 
     public FlightSearchFacade() {

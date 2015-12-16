@@ -47,7 +47,7 @@ public class DeploymentConfiguration implements ServletContextListener {
       
 
       User user = new User("user", PasswordHash.createHash("test"), "FirstName", "LastName","Email@Test.com");
-            User admin = new User("admin", PasswordHash.createHash("test"), "FirstName", "LastName","Email@Test.com");
+      User admin = new User("admin", PasswordHash.createHash("test"), "FirstName", "LastName","Email@Test.com");
       User both = new User("user_admin", PasswordHash.createHash("test"), "FirstName", "LastName","Email@Test.com");
       user.AddRole(userRole);
       admin.AddRole(adminRole);
@@ -87,6 +87,7 @@ public class DeploymentConfiguration implements ServletContextListener {
       airlines.add(new AirlinesUrl("http://thebighornairline-ebski.rhcloud.com/GiantHornAirlineServer/","ClassA-19"));
       airlines.add(new AirlinesUrl("http://justfly.azurewebsites.net/MomondoProjekt/","ClassA-42"));
       airlines.add(new AirlinesUrl("http://timetravel-tocvfan.rhcloud.com/","ClassB-TimeTravel"));
+      airlines.add(new AirlinesUrl("https://frenchyairlines-zerosource.rhcloud.com/","Frenchy Airlines"));
       
         em.getTransaction().begin();
             for (AirlinesUrl airline : airlines) {

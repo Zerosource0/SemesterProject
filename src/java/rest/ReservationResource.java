@@ -58,8 +58,10 @@ public class ReservationResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllReservations() {
 
-        List<User> users = uf.getUsers();
-
+        List<User> users = uf.getUsersWithReservations();
+//        for (User user : users) {
+//            System.out.println(user.toString());
+//        }
         JsonObject userJObject = new JsonObject();
 
         for (User user : users) {

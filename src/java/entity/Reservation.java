@@ -30,7 +30,7 @@ public class Reservation implements Serializable {
 
     
     
-    @ManyToOne 
+    @ManyToOne
     private User user;
 
     public User getUser() {
@@ -63,6 +63,17 @@ public class Reservation implements Serializable {
     public Reservation() {
     }
 
+    public Reservation( String airline, String flightID, String flightDate, int numberOfSeats, int travelTime, int totalPrice, String origin, String destination, List<Passenger> passengers) {
+        this.airline = airline;
+        this.flightID = flightID;
+        this.flightDate = flightDate;
+        this.numberOfSeats = numberOfSeats;
+        this.travelTime = travelTime;
+        this.totalPrice = totalPrice;
+        this.origin = origin;
+        this.destination = destination;
+        this.passengers = passengers;
+    }
     public Reservation(User user, String airline, String flightID, String flightDate, int numberOfSeats, int travelTime, int totalPrice, String origin, String destination, List<Passenger> passengers) {
         this.user = user;
         this.airline = airline;
@@ -152,7 +163,7 @@ public class Reservation implements Serializable {
 
     @Override
     public String toString() {
-        return "Reservation{" + "id=" + id + ", user=" + user + ", airline=" + airline + ", flightID=" + flightID + ", flightDate=" + flightDate + ", numberOfSeats=" + numberOfSeats + ", travelTime=" + travelTime + ", totalPrice=" + totalPrice + ", origin=" + origin + ", destination=" + destination + ", passengers=" + passengers + '}';
+        return "Reservation{" + "id=" + id + ", user=" + user + ", airline=" + airline + ", flightID=" + flightID + ", flightDate=" + flightDate + ", numberOfSeats=" + numberOfSeats + ", travelTime=" + travelTime + ", totalPrice=" + totalPrice + ", origin=" + origin + ", destination=" + destination + '}';
     }
     
     

@@ -5,20 +5,9 @@
  */
 package facades;
 
-import com.google.gson.Gson;
-import deploy.DeploymentConfiguration;
-import entity.Airport;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import entity.User;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -35,7 +24,15 @@ public class smallTester {
 
     public static void main(String[] args) {
         
-
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU-Local");
+        EntityManager em = emf.createEntityManager();
+        String append="";
+        List<User> users = em.createQuery("select u from User u, Reservation r where u.userName=r.user.userName").getResultList();
+        for (User user : users) {
+//            if (!user.getReservations().isEmpty()) append = user.getReservations().get(0).toString();
+            System.out.println(user.toString());
+        }
+        
 //        CurrencyFacade cf = new CurrencyFacade();
 //        ArrayList al=cf.getAllValues();
 //        cf.getComplete();

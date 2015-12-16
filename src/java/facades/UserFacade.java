@@ -87,6 +87,11 @@ public class UserFacade {
         EntityManager em = emf.createEntityManager();
         return em.createQuery("Select s from User s").getResultList();
     }
+    public List<User> getUsersWithReservations ()
+    {
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery("select u from User u, Reservation r where u.userName=r.user.userName").getResultList();
+    }
 
     public User getUserByUserId(String id) {
         EntityManager em = emf.createEntityManager();

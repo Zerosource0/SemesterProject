@@ -53,11 +53,14 @@ public class ReservationFacade {
     public String reserve(User user, String airline, String flightId, String flightDate, Integer numberOfSeats, int travelTime, int totalPrice, String origin, String destination, List<Passenger> passengersl) {
 
         EntityManager em = emf.createEntityManager();
-
-        Reservation reservation = new Reservation(user, airline, flightId, flightDate, numberOfSeats, travelTime, totalPrice, origin, destination, passengersl);
+        
+        Reservation reservation = new Reservation( airline, flightId, flightDate, numberOfSeats, travelTime, totalPrice, origin, destination, passengersl);
+        user.addReservation(reservation);
+        reservation.setUser(user);
         try {
             em.getTransaction().begin();
             em.persist(reservation);
+           // em.persist(user);
             em.getTransaction().commit();
 
         } finally {

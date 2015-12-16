@@ -11,6 +11,10 @@ angular.module('myApp.homeView', ['ngRoute'])
             }])
 
         .controller('homeViewCtrl', ['$http', '$scope', '$filter', function ($http, $scope, $filter) {
+                angular.element(document).ready(function () {
+                    document.getElementById('register').click();
+                    $("#lean_overlay").trigger("click");
+                });
                 $scope.searching = false;
                 var seats = 1;
                 var passengerString="";
@@ -37,17 +41,14 @@ angular.module('myApp.homeView', ['ngRoute'])
                 });
 
                 $scope.bookFlight = function () {
-                    
+                    $("html, body").animate({ scrollTop: 1300 }, 800);
                     $scope.booking = true;
                     if (seats > 1) {
                         $scope.extraPassengers = true;
                     }
 
                 };
-                
-                $scope.registeringTrue = function(){
-                    $scope.registering = true;
-                };
+
                 $scope.getData = {};
                 
                $scope.passengerFormatter = function(){
@@ -77,6 +78,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                                 phone: $scope.newUser.phone});
                                 } else {
                                     console.log("success: " +status);
+                                    $("html, body").animate({ scrollTop: 605 }, 600);
                                 }
                             })
                             .error(function(data,status){
@@ -109,6 +111,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                                     $scope.extraPassengers = false;
                                     $scope.bookingComplete = true;
                                     $scope.bookingSuccess = true;
+                                    window.scrollTo(0, 605);
                                     $scope.completionMessage = "Booking complete! For "+seats+"passengers, from "+ $scope.getData.flight.origin+" to " + $scope.getData.flight.destination
                                     + " on the " + $scope.getData.flight.date;
                                 }
@@ -123,7 +126,9 @@ angular.module('myApp.homeView', ['ngRoute'])
                         };
 
                 $scope.searchSelector = function () {
-
+                    
+                    window.scrollTo(0, 605);
+                    $scope.searchTable = false;
                     if (angular.isUndefined($scope.searcht.to) || $scope.searcht.to === "" || $scope.searcht.to === null) {
                         if (angular.isUndefined($scope.searcht.airline) || $scope.searcht.airline === "" || $scope.searcht.airline === null || $scope.searcht.airline === "All") {
                             $scope.searchFrom();
@@ -157,11 +162,12 @@ angular.module('myApp.homeView', ['ngRoute'])
                     $http.get("api/flightinfo/" + $scope.searcht.from + "/" + date.toISOString() + "/" + $scope.searcht.seats)
                             .success(function (data, status) {
                                 if (status != 200) {
-                                    $scope.toException = data;
+                                    $scope.exception = data;
                                     $scope.loading = "";
                                 } else {
                                     $scope.loading = "";
                                     $scope.data = data;
+                                    $scope.searchTable = true;
                                 }
                             }
                             ).error(function (data, status) {
@@ -193,6 +199,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                                     $scope.loading = "";
                                     $scope.data = data;
                                     console.log(date.toISOString());
+                                    $scope.searchTable = true;
                                 }
                             }
                             ).error(function (data, status) {
@@ -259,6 +266,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularBerlin = function () {
+                    $("html, body").animate({ scrollTop: 605 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -289,6 +297,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularAmsterdam = function () {
+                    $("html, body").animate({ scrollTop: 605 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -318,6 +327,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularBarcelona = function () {
+                    $("html, body").animate({ scrollTop: 605 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -347,6 +357,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularTokyo = function () {
+                    $("html, body").animate({ scrollTop: 605 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -376,6 +387,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularRome = function () {
+                    $("html, body").animate({ scrollTop: 605 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -406,6 +418,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularLondon = function () {
+                    $("html, body").animate({ scrollTop: 605 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -438,6 +451,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularMoscow = function () {
+                    $("html, body").animate({ scrollTop: 605 }, 600);                  
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -467,6 +481,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularNewYork = function () {
+                    $("html, body").animate({ scrollTop: 605 }, 600);                  
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";

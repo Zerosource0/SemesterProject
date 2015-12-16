@@ -45,13 +45,12 @@
                 <div  ng-controller="AppLoginCtrl">
                     <div class="top-h">
                         <div class="logo">
-                            <a href="#"> Morondo </a>
+                            <a href="#" id="logo"> Morondo </a>
                         </div>
                         <div class="menu">
                             <div ng-show="!loggingIn" ng-cloak>
                                  <button type="submit" class="s-3" ng-click="loginPrompt()">login </button>
-                                 <a ng-click="registeringTrue()" href="#modalWindow" id="register">Sign Up!</a>
-
+                                 <a href="#modalWindow" id="register">Sign Up!</a>
                             </div>
                             <div ng-show="loggingIn" ng-cloak >
                             <form role="form" ng-show="!isAuthenticated" ng-submit="login()">
@@ -59,6 +58,7 @@
                                     <li>Username:<input name="security_username" type="text" style="width:10em;" placeholder="User name" class="form-control"ng-model="user.username"> </li>
                                     <li>Password:<input name="password" type="password" style="width:10em;" placeholder="Password" class="form-control" ng-model="user.password"></li>                       
                                     <li><input type="submit" value="login" class="s-3"></li>
+                                    <a ng-click="registeringTrue()" href="#modalWindow" id="register">Sign Up!</a>
                                 </ul> 
                             </form>
                             <div class="navbar-right" ng-show="isAuthenticated" ng-cloak>
@@ -140,10 +140,11 @@
             </div>
             <h3 style="text-align: center;">{{loading}}</h3>
             <h3 style="text-align: center;">{{exception}}</h3>
+            <div ng-show="searchTable">
             <div class="tableContainer">
                 <table ng-if="data != null" class="searchResultTable">        
                     <thead>
-                    <th>Airline</th>
+                    <th ng-show="allAirlines">Airline</th>
                     <th>From</th>
                     <th>To</th>
                     <th>Date</th>
@@ -152,7 +153,7 @@
                     <th>Travel Time</th>
                     <th>Price</th>
                     </thead>
-                    <tbody ng-show="allAirlines" ng-repeat="line in data">
+                    <tbody ng-show="allAirlines" ng-repeat="line in data" ng-cloak="">
                         <tr ng-repeat="f in line.flights">
                             <td>{{line.airline}}</td>
                             <td>{{f.origin}}</td>
@@ -165,9 +166,8 @@
                             <td><button class="s-3" ng-click="getData.line = line; getData.flight = f; bookFlight()">Book</button></td>
                         </tr>
                     </tbody>
-                    <tbody ng-show="!allAirlines">
+                    <tbody ng-show="!allAirlines" ng-cloak="">
                         <tr ng-repeat="f in data.flights">
-                            <td>{{f.airline}}</td>
                             <td>{{f.origin}}</td>
                             <td>{{f.destination}}</td>
                             <td>{{f.date| date:"MM/dd/yyyy" }}</td>
@@ -179,6 +179,7 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
             </div>
         </section>
         <div ng-show="!searching" ng-cloak>
@@ -354,10 +355,10 @@
 
         </div>
     </section>
-      <section class="blue" ng-cloak id="modalWindow">
+      <section class="blue" id="modalWindow">
             <h2 style="text-align: center">Sign Up!</h2>
         <div style="text-align: center" >
-            First Name: <input class="i-2" type="text" ng-model="newUser.firstName"><button style="text-align: right;">Cancel</button>
+            First Name: <input class="i-2" type="text" ng-model="newUser.firstName">
             <br>
             Last Name: <input class="i-2" type="text" ng-model="newUser.lastName">
             <br>

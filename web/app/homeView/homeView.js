@@ -47,7 +47,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 
                 $scope.registeringTrue = function(){
                     $scope.registering = true;
-                }
+                };
                 $scope.getData = {};
                 
                $scope.passengerFormatter = function(){
@@ -66,13 +66,17 @@ angular.module('myApp.homeView', ['ngRoute'])
                 
                 $scope.registerUser = function(){
                     
-                    $http.post("api/newuser/"+ $scope.newUser.username+"/"+ $scope.newUser.password +"/"+"user"+"/"+ $scope.newUser.firstName
-                            +"/"+ $scope.newUser.lastName+"/"+$scope.newUser.email)
+                    $http.post("api/newuser/",{ username: $scope.newUser.username, password: $scope.newUser.password, role: "user", firstName: $scope.newUser.firstName
+                            , lastName: $scope.newUser.lastName, email: $scope.newUser.email, phone: $scope.newUser.phone})
                             .success(function(data,status){
                                  if (status != 200) {
-                                    console.log("failed: " +status)
+                                     console.log(data);
+                                    console.log("failed: " +status);
+                            console.log({ username: $scope.newUser.username, password: $scope.newUser.password, role: "user", 
+                                firstName: $scope.newUser.firstName, lastName: $scope.newUser.lastName, email: $scope.newUser.email, 
+                                phone: $scope.newUser.phone});
                                 } else {
-                                    console.log("success: " +status)
+                                    console.log("success: " +status);
                                 }
                             })
                             .error(function(data,status){
@@ -142,7 +146,8 @@ angular.module('myApp.homeView', ['ngRoute'])
                     $scope.loading = "Searching for flights.."
                     $scope.searching = true;
                     $scope.exception = "";
-                    
+                    $scope.allAirlines = true;
+
                     seats = $scope.searcht.seats;
                     var year = $scope.searcht.date.getFullYear();
                     var month = $scope.searcht.date.getMonth();
@@ -170,6 +175,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
+                    $scope.allAirlines = true;
                     seats = $scope.searcht.seats;
 
                     var year = $scope.searcht.date.getFullYear();
@@ -200,6 +206,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
+                    $scope.allAirlines = false;
                     seats = $scope.searcht.seats;
                     var year = $scope.searcht.date.getFullYear();
                     var month = $scope.searcht.date.getMonth();
@@ -227,6 +234,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
+                    $scope.allAirlines = false;
                     seats = $scope.searcht.seats;
                     var year = $scope.searcht.date.getFullYear();
                     var month = $scope.searcht.date.getMonth();

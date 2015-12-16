@@ -37,7 +37,7 @@ public class UserFacade {
 
     }
 
-    public Boolean newUser(String userName, String password, String roleName, String firstName, String lastName, String email, String phone) {
+    public Boolean newUser(String userName, String password, String roleName, String firstName, String lastName, String email) {
 
         if (userName.equals("") || password.equals("") || userName == null || password == null) {
             throw new BadParameterException("Make sure your username or password is not blank");
@@ -50,7 +50,7 @@ public class UserFacade {
             if (user != null) {
                 return false;
             } else {
-                User newUser = new User(userName, PasswordHash.createHash(password), firstName, lastName, email, phone);
+                User newUser = new User(userName, PasswordHash.createHash(password), firstName, lastName, email);
                 try {
                     newUser.AddRole(em.find(Role.class, roleName));
                 } catch (Exception e) {

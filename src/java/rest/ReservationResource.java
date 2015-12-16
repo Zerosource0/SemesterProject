@@ -93,28 +93,29 @@ public class ReservationResource {
         return gson.toJson(userJObject);
     }
 
-<<<<<<< HEAD
     
-  @POST
-  @Path("/{airline}/{flightID}/{flightDate}/{numberOfSeats}/{travelTime}/{totalPrice}/{origin}/{destination}/{passengers}")
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  public String newReservation(
-          @PathParam("airline") String airline,
-          @PathParam("flightID") String flightID,
-          @PathParam("flightDate") String flightDate,
-          @PathParam("numberOfSeats") Integer numberOfSeats,
-          @PathParam("travelTime") Integer travelTime,
-          @PathParam("totalPrice") Integer totalPrice,
-          @PathParam("origin") String origin,
-          @PathParam("destination") String destination,
-          @PathParam("flightDate") String from, 
-          @PathParam("passengers") String passengers) throws JOSEException 
-  {
-    if(flightDate.equals("")|| numberOfSeats<=0){
-        throw new BadParameterException("Make sure you enter something");
-=======
-    @GET
+//  @POST
+//  @Path("/{airline}/{flightID}/{flightDate}/{numberOfSeats}/{travelTime}/{totalPrice}/{origin}/{destination}/{passengers}")
+//  @Consumes(MediaType.APPLICATION_JSON)
+//  @Produces(MediaType.APPLICATION_JSON)
+//  public String newReservation(
+//          @PathParam("airline") String airline,
+//          @PathParam("flightID") String flightID,
+//          @PathParam("flightDate") String flightDate,
+//          @PathParam("numberOfSeats") Integer numberOfSeats,
+//          @PathParam("travelTime") Integer travelTime,
+//          @PathParam("totalPrice") Integer totalPrice,
+//          @PathParam("origin") String origin,
+//          @PathParam("destination") String destination,
+//          @PathParam("flightDate") String from, 
+//          @PathParam("passengers") String passengers) throws JOSEException 
+//  {
+//    if(flightDate.equals("")|| numberOfSeats<=0){
+//        throw new BadParameterException("Make sure you enter something");
+//    }
+//    return null;
+//  }
+        @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getReservationsByUser() {
 
@@ -145,7 +146,7 @@ public class ReservationResource {
         }
 
         return gson.toJson(jArray);
->>>>>>> d92945dbf5aebec6fb502ad6d0715482a2ec2456
+
     }
 
     @POST

@@ -53,7 +53,6 @@ public class NewUserResource {
     String firstName = json.get("firstName").getAsString();
     String lastName = json.get("lastName").getAsString();
     String email = json.get("email").getAsString();
-    String phone = json.get("phone").getAsString();
     
     if(username.equals("")|| password.equals("")|| role == null){
         throw new BadParameterException("Make sure you enter something");
@@ -61,7 +60,7 @@ public class NewUserResource {
     
     JsonObject responseJson = new JsonObject();
     UserFacade uf = UserFacade.getInstance();
-    boolean addUser = uf.newUser(username, password, role, firstName, lastName, email, phone);
+    boolean addUser = uf.newUser(username, password, role, firstName, lastName, email);
     
     if(addUser){
         System.out.println("good");

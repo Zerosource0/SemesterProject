@@ -44,6 +44,10 @@ angular.module('myApp.homeView', ['ngRoute'])
                     }
 
                 };
+                
+                $scope.registeringTrue = function(){
+                    $scope.registering = true;
+                }
                 $scope.getData = {};
                 
                $scope.passengerFormatter = function(){
@@ -60,11 +64,28 @@ angular.module('myApp.homeView', ['ngRoute'])
                       });
                 };
                 
+                $scope.registerUser = function(){
+                    
+                    $http.post("api/newuser/"+ $scope.newUser.username+"/"+ $scope.newUser.password +"/"+"user"+"/"+ $scope.newUser.firstName
+                            +"/"+ $scope.newUser.lastName+"/"+$scope.newUser.email)
+                            .success(function(data,status){
+                                 if (status != 200) {
+                                    console.log("failed: " +status)
+                                } else {
+                                    console.log("success: " +status)
+                                }
+                            })
+                            .error(function(data,status){
+                                
+                            })
+                }
+                
                 $scope.reserveFlightTickets = function(){
                     console.log("api/reservation/" + $scope.getData.line.airline + "/" + $scope.getData.flight.flightID 
                             + "/" + $scope.getData.flight.date + "/" + seats + "/" + $scope.getData.flight.traveltime
                             + "/" + $scope.getData.flight.totalPrice + "/" + $scope.getData.flight.origin + "/" 
                             + $scope.getData.flight.destination + "/" + passengerString);
+
                     $http.post("api/reservation/" + $scope.getData.line.airline + "/" + $scope.getData.flight.flightID 
                             + "/" + $scope.getData.flight.date + "/" + seats + "/" + $scope.getData.flight.traveltime
                             + "/" + $scope.getData.flight.totalPrice + "/" + $scope.getData.flight.origin + "/" 
@@ -83,8 +104,9 @@ angular.module('myApp.homeView', ['ngRoute'])
                                     $scope.searching = false;
                                     $scope.extraPassengers = false;
                                     $scope.bookingComplete = true;
-                                    $scope.completionMessage = "Booking complete! For "+seats+"passengers, from "+ $scope.getData.flight.origin+" to " +" $scope.getData.flight.destination"
-                                    + "on the " + $scope.getData.flight.date;
+                                    $scope.bookingSuccess = true;
+                                    $scope.completionMessage = "Booking complete! For "+seats+"passengers, from "+ $scope.getData.flight.origin+" to " + $scope.getData.flight.destination
+                                    + " on the " + $scope.getData.flight.date;
                                 }
                             }).error(function (data, status) {
 

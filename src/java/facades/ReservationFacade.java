@@ -92,7 +92,6 @@ public class ReservationFacade {
         jsonObj.addProperty("flightID", flightId);
         jsonObj.addProperty("numberOfSeats", numberOfSeats);
         jsonObj.addProperty("ReserveeName", user.getFirstName() + " " + user.getLastName());
-        jsonObj.addProperty("ReserveePhone", user.getPhone());
         jsonObj.addProperty("ReserveeEmail", user.getEmail());
 
         JsonArray passengers = new JsonArray();

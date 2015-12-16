@@ -114,7 +114,7 @@ public class User implements Serializable {
       this.lastName = lastName;
   }
 
-<<<<<<< HEAD
+
     @Override
     public String toString() {
         String result="User{" + "password=" + password + ", userName=" + userName + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", roles=" + roles + '}'+"\n";
@@ -126,7 +126,7 @@ public class User implements Serializable {
     }
   
   
-=======
+
     public String getPhone() {
         return phone;
     }
@@ -134,6 +134,6 @@ public class User implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
->>>>>>> 830f6b6f9787960099e96e04a979bb5fe3ff8613
+
        
 }

@@ -13,6 +13,7 @@ angular.module('myApp.homeView', ['ngRoute'])
         .controller('homeViewCtrl', ['$http', '$scope', '$filter', function ($http, $scope, $filter) {
                 angular.element(document).ready(function () {
                     document.getElementById('register').click();
+                    document.getElementById('booking').click();
                     $("#lean_overlay").trigger("click");
                 });
                 $scope.searching = false;
@@ -78,7 +79,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                                 phone: $scope.newUser.phone});
                                 } else {
                                     console.log("success: " +status);
-                                    $("html, body").animate({ scrollTop: 605 }, 600);
+                                    $("html, body").animate({ scrollTop: $(window).height()/1.12 }, 600);
                                 }
                             })
                             .error(function(data,status){
@@ -266,7 +267,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularBerlin = function () {
-                    $("html, body").animate({ scrollTop: 605 }, 600);
+                    $("html, body").animate({ scrollTop: $(window).height()/1.12 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -297,7 +298,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularAmsterdam = function () {
-                    $("html, body").animate({ scrollTop: 605 }, 600);
+                    $("html, body").animate({ scrollTop: $(window).height()/1.12 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -327,7 +328,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularBarcelona = function () {
-                    $("html, body").animate({ scrollTop: 605 }, 600);
+                    $("html, body").animate({ scrollTop: $(window).height()/1.12 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -357,7 +358,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularTokyo = function () {
-                    $("html, body").animate({ scrollTop: 605 }, 600);
+                    $("html, body").animate({ scrollTop: $(window).height()/1.12 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -387,7 +388,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularRome = function () {
-                    $("html, body").animate({ scrollTop: 605 }, 600);
+                    $("html, body").animate({ scrollTop: $(window).height()/1.12 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -418,7 +419,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularLondon = function () {
-                    $("html, body").animate({ scrollTop: 605 }, 600);
+                    $("html, body").animate({ scrollTop: $(window).height()/1.12 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -451,7 +452,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularMoscow = function () {
-                    $("html, body").animate({ scrollTop: 605 }, 600);                  
+                    $("html, body").animate({ scrollTop: $(window).height()/1.12 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";
@@ -481,7 +482,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
 
                 $scope.popularNewYork = function () {
-                    $("html, body").animate({ scrollTop: 605 }, 600);                  
+                    $("html, body").animate({ scrollTop: $(window).height()/1.12 }, 600);
                     $scope.searching = true;
                     $scope.loading = "Searching for flights.."
                     $scope.exception = "";

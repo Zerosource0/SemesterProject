@@ -49,26 +49,33 @@
                         </div>
                         <div class="menu">
                             <div ng-show="!loggingIn" ng-cloak>
-                                 <button type="submit" class="s-3" ng-click="loginPrompt()">login </button>
-                                 <a href="#modalWindow" id="register">Sign Up!</a>
+                                <button type="submit" class="s-3" ng-click="loginPrompt()">login</button>
+                                <a href="#modalWindow" id="register">Sign Up!</a>
                             </div>
                             <div ng-show="loggingIn" ng-cloak >
-                            <form role="form" ng-show="!isAuthenticated" ng-submit="login()">
-                                <ul>
-                                    <li>Username:<input name="security_username" type="text" style="width:10em;" placeholder="User name" class="form-control"ng-model="user.username"> </li>
-                                    <li>Password:<input name="password" type="password" style="width:10em;" placeholder="Password" class="form-control" ng-model="user.password"></li>                       
-                                    <li><input type="submit" value="login" class="s-3"></li>
-                                    <a ng-click="registeringTrue()" href="#modalWindow" id="register">Sign Up!</a>
-                                </ul> 
-                            </form>
-                            <div class="navbar-right" ng-show="isAuthenticated" ng-cloak>
+                                <form role="form" ng-show="!isAuthenticated" ng-submit="login()">
+                                    <ul id="menu">
+                                        <li>Username:<input name="security_username" type="text" style="width:10em;" placeholder="User name" class="form-control"ng-model="user.username"></li>
+                                        <li>Password:<input name="password" type="password" style="width:10em;" placeholder="Password" class="form-control" ng-model="user.password"></li>                       
+                                        <li><input type="submit" value="login" class="s-3"></li>
+                                        <a href="#modalWindow" id="register">Sign Up!</a>
+                                    </ul> 
+                                </form>
+                                <div style="width: 204px;" class="navbar-right" ng-show="isAuthenticated" ng-cloak>
 
-                                <p class="navbar-text">LOGGED IN AS: {{username|uppercase}}</p>
+                                    <p class="navbar-text">LOGGED IN AS: {{username|uppercase}}</p>
 
-                                <button type="submit" class="s-3" ng-click="logout()">Logout
-                                </button>
+                                    <button style="float:right;" type="submit" class="s-3" ng-click="logout()">Logout
+                                    </button>
+                                    <div class="actions">
+                                        <button class="s-4" id="TakeAction">Account Info</button>
+                                        <ul  id="actions">
+                                            <li><a href="#bookingWindow" id="booking"><button class="s-3">Bookings</button></a></li>
+                                            <li><a><button class="s-3">Account</button></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
                         </div>
                     </div>
@@ -104,7 +111,7 @@
                                     </datalist>
                                     <input type="submit" value="1" class="s-1">
                                 </div>
-                                
+
                                 <div class="col-5">
                                     <input list="airlines"  class="i-1" placeholder="Airline" ng-model="searcht.airline">
                                     <datalist id="airlines">
@@ -141,59 +148,63 @@
             <h3 style="text-align: center;">{{loading}}</h3>
             <h3 style="text-align: center;">{{exception}}</h3>
             <div ng-show="searchTable">
-            <div class="tableContainer">
-                <table ng-if="data != null" class="searchResultTable">        
-                    <thead>
-                    <th ng-show="allAirlines">Airline</th>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Seats</th>
-                    <th>Travel Time</th>
-                    <th>Price</th>
-                    </thead>
-                    <tbody ng-show="allAirlines" ng-repeat="line in data" ng-cloak="">
-                        <tr ng-repeat="f in line.flights">
-                            <td>{{line.airline}}</td>
-                            <td>{{f.origin}}</td>
-                            <td>{{f.destination}}</td>
-                            <td>{{f.date| date:"MM/dd/yyyy" }}</td>
-                            <td>{{f.date| date:"h:mma" }}</td>
-                            <td>{{f.numberOfSeats}}</td>
-                            <td>{{f.traveltime}} Minutes</td>
-                            <td>{{f.totalPrice| number:2}}</td>
-                            <td><button class="s-3" ng-click="getData.line = line; getData.flight = f; bookFlight()">Book</button></td>
-                        </tr>
-                    </tbody>
-                    <tbody ng-show="!allAirlines" ng-cloak="">
-                        <tr ng-repeat="f in data.flights">
-                            <td>{{f.origin}}</td>
-                            <td>{{f.destination}}</td>
-                            <td>{{f.date| date:"MM/dd/yyyy" }}</td>
-                            <td>{{f.date| date:"h:mma" }}</td>
-                            <td>{{f.numberOfSeats}}</td>
-                            <td>{{f.traveltime}} Minutes</td>
-                            <td>{{f.totalPrice| number:2}}</td>
-                            <td><button class="s-3" ng-click="getData.line = line; getData.flight = f; bookFlight()">Book</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <div class="tableContainer">
+                    <table ng-if="data != null" class="searchResultTable">        
+                        <thead>
+                        <th ng-show="allAirlines">Airline</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Seats</th>
+                        <th>Travel Time</th>
+                        <th>Price</th>
+                        </thead>
+                        <tbody ng-show="allAirlines" ng-repeat="line in data" ng-cloak="">
+                            <tr ng-repeat="f in line.flights">
+                                <td>{{line.airline}}</td>
+                                <td>{{f.origin}}</td>
+                                <td>{{f.destination}}</td>
+                                <td>{{f.date| date:"MM/dd/yyyy" }}</td>
+                                <td>{{f.date| date:"h:mma" }}</td>
+                                <td>{{f.numberOfSeats}}</td>
+                                <td>{{f.traveltime}} Minutes</td>
+                                <td>{{f.totalPrice| number:2}}</td>
+                                <td><button class="s-3" ng-click="getData.line = line;
+                                                    getData.flight = f;
+                                                    bookFlight()">Book</button></td>
+                            </tr>
+                        </tbody>
+                        <tbody ng-show="!allAirlines" ng-cloak="">
+                            <tr ng-repeat="f in data.flights">
+                                <td>{{f.origin}}</td>
+                                <td>{{f.destination}}</td>
+                                <td>{{f.date| date:"MM/dd/yyyy" }}</td>
+                                <td>{{f.date| date:"h:mma" }}</td>
+                                <td>{{f.numberOfSeats}}</td>
+                                <td>{{f.traveltime}} Minutes</td>
+                                <td>{{f.totalPrice| number:2}}</td>
+                                <td><button class="s-3" ng-click="getData.line = line;
+                                                getData.flight = f;
+                                                bookFlight()">Book</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
         <div ng-show="!searching" ng-cloak>
             <section class="about" >
                 <div ng-show="!bookingSuccess">
-                <div class="title" data-sr="wait .2s, enter bottom, over .5s">
-                    <h1> Welcome to Morondo Flight Search</h1>
-                </div>
-                <h2 data-sr="wait .4s, enter bottom, over .5s"> Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-                 blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.</h2> 
+                    <div class="title" data-sr="wait .2s, enter bottom, over .5s">
+                        <h1> Welcome to Morondo Flight Search</h1>
+                    </div>
+                    <h2 data-sr="wait .4s, enter bottom, over .5s"> Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+                        blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.</h2> 
                 </div>
                 <div ng-show="bookingSuccess" ng-cloak>
                     <div class="title">
-                    <h1 >Thank you for choosing Morondo!</h1>
+                        <h1 >Thank you for choosing Morondo!</h1>
                     </div>
                     <br>
                     <br>
@@ -201,42 +212,43 @@
                 </div>
             </section>
         </div>
-        
+
         <div  ng-cloak ng-show="booking">
             <section class="about" >
                 <div class="title">
-                <h1>Step 3 - Fill in additional Information</h1>
-            </div>
-<br>
-              <div style="text-align: center;">
-                <form>
-                    <h2>Booking Passenger</h2>
-                    <br>
-                    First Name: <input type="text" ng-model="passengers.person[0].firstName">
-                    <br>
-                    Last Name: <input type="text" ng-model="passengers.person[0].lastName">
-                    <br>
-                    Email: <input type="text">
+                    <h1>Step 3 - Fill in additional Information</h1>
+                </div>
+                <br>
+                <div style="text-align: center;">
+                    <form>
+                        <h2>Booking Passenger</h2>
+                        <br>
+                        First Name: <input type="text" ng-model="passengers.person[0].firstName">
+                        <br>
+                        Last Name: <input type="text" ng-model="passengers.person[0].lastName">
+                        <br>
+                        Email: <input type="text">
                         <br>
                         <br>
-                    <div ng-show="extraPassengers">
-                    <h2>Additional Passengers</h2>
-                    <br>
-                    <div ng-repeat="s in seatAmount($scope.seats) track by $index" >
-                        <h3 style="color: graytext;">Passenger {{$index+1}}</h3>
-                        First Name: <input type="text" ng-model="passengers.person[$index+1].firstName">
-                        <br>
-                        Last Name: <input type="text" ng-model="passengers.person[$index+1].lastName">
-                        <br>
-                        <br>
-                    </div>
-                    <br>
-                        <br>
-                    </div>
-                    <button  style="text-align: center;" class="s-3" ng-click="passengerFormatter(); reserveFlightTickets()">Book</button>
+                        <div ng-show="extraPassengers">
+                            <h2>Additional Passengers</h2>
+                            <br>
+                            <div ng-repeat="s in seatAmount($scope.seats) track by $index" >
+                                <h3 style="color: graytext;">Passenger {{$index + 1}}</h3>
+                                First Name: <input type="text" ng-model="passengers.person[$index + 1].firstName">
+                                <br>
+                                Last Name: <input type="text" ng-model="passengers.person[$index + 1].lastName">
+                                <br>
+                                <br>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                        <button  style="text-align: center;" class="s-3" ng-click="passengerFormatter();
+                                    reserveFlightTickets()">Book</button>
 
-                </form>
-              </div>
+                    </form>
+                </div>
             </section>
         </div>
 
@@ -271,134 +283,161 @@
                 </div>
             </div>
         </section>
-   
-    <section>
-        <div class="title" data-sr="wait .2s, enter bottom, over .5s">
-            <h1>Popular Destinations</h1>
-            <p style="text-align: center; color: graytext;">See todays offers for our most popular destinations</p>
-        </div>
 
-        <div class="container-3" data-sr="wait .1s, enter bottom, over .3s">
-            <div class="col-4">
+        <section>
+            <div class="title" data-sr="wait .2s, enter bottom, over .5s">
+                <h1>Popular Destinations</h1>
+                <p style="text-align: center; color: graytext;">See todays offers for our most popular destinations</p>
+            </div>
+
+            <div class="container-3" data-sr="wait .1s, enter bottom, over .3s">
+                <div class="col-4">
                     <button class="pic" ng-click="popularBerlin()">
-                    <div class="hov">
-                        <h1> Berlin </h1>
-                    </div>
-                    <img src="img/berlin.jpg">
+                        <div class="hov">
+                            <h1> Berlin </h1>
+                        </div>
+                        <img src="img/berlin.jpg">
                     </button>
-            </div>
+                </div>
 
-            <div class="col-4">
+                <div class="col-4">
                     <button class="pic" ng-click="popularAmsterdam()">
-                    <div class="hov">
-                        <h1> Amsterdam </h1>
-                    </div>
-                    <img src="img/amsterdam.jpg">
-               
-                </button>
+                        <div class="hov">
+                            <h1> Amsterdam </h1>
+                        </div>
+                        <img src="img/amsterdam.jpg">
+
+                    </button>
+                </div>
+
+                <div class="col-4">
+                    <button class="pic" ng-click="popularBarcelona()">
+                        <div class="hov">
+                            <h1> Barcelona </h1>
+                        </div>
+                        <img src="img/barcelona.jpg">
+                    </button>
+                </div>
+
+                <div class="col-4">
+                    <button class="pic" ng-click="popularTokyo()">
+                        <div class="hov">
+                            <h1> Tokyo </h1>
+                        </div>
+                        <img src="img/tokyo.jpg">
+                    </button>
+                </div>
+
+                <div class="col-4">
+                    <button class="pic" ng-click="popularRome()">
+                        <div class="hov">
+                            <h1> Rome </h1>
+                        </div>
+                        <img src="img/rome.jpg">
+                    </button>
+                </div>
+
+                <div class="col-4">
+                    <button class="pic" ng-click="popularLondon()">
+                        <div class="hov">
+                            <h1> London </h1>
+                        </div>
+                        <img src="img/london.jpg">
+                    </button>
+                </div>
+
+                <div class="col-4">
+                    <button class="pic" ng-click="popularMoscow()">
+                        <div class="hov">
+                            <h1> Moscow </h1>
+                        </div>
+                        <img src="img/moscow.jpg">
+                    </button>
+                </div>
+
+                <div class="col-4">
+                    <button class="pic" ng-click="popularNewYork()">
+                        <div class="hov">
+                            <h1> New York </h1>
+                        </div>
+                        <img src="img/newyork.jpg">
+                    </button>
+                </div>
+
+
             </div>
-
-            <div class="col-4">
-                <button class="pic" ng-click="popularBarcelona()">
-                    <div class="hov">
-                        <h1> Barcelona </h1>
-                    </div>
-                    <img src="img/barcelona.jpg">
-                 </button>
-            </div>
-
-            <div class="col-4">
-                <button class="pic" ng-click="popularTokyo()">
-                    <div class="hov">
-                        <h1> Tokyo </h1>
-                    </div>
-                    <img src="img/tokyo.jpg">
-                 </button>
-            </div>
-
-            <div class="col-4">
-                <button class="pic" ng-click="popularRome()">
-                    <div class="hov">
-                        <h1> Rome </h1>
-                    </div>
-                    <img src="img/rome.jpg">
-                </button>
-            </div>
-
-            <div class="col-4">
-                <button class="pic" ng-click="popularLondon()">
-                    <div class="hov">
-                        <h1> London </h1>
-                    </div>
-                    <img src="img/london.jpg">
-                 </button>
-            </div>
-
-            <div class="col-4">
-                <button class="pic" ng-click="popularMoscow()">
-                    <div class="hov">
-                        <h1> Moscow </h1>
-                    </div>
-                    <img src="img/moscow.jpg">
-                 </button>
-            </div>
-
-             <div class="col-4">
-                <button class="pic" ng-click="popularNewYork()">
-                    <div class="hov">
-                        <h1> New York </h1>
-                    </div>
-                    <img src="img/newyork.jpg">
-                 </button>
-            </div>
-
-
-        </div>
-    </section>
-      <section class="blue" id="modalWindow">
-            <h2 style="text-align: center">Sign Up!</h2>
-        <div style="text-align: center" >
-            First Name: <input class="i-2" type="text" ng-model="newUser.firstName">
-            <br>
-            Last Name: <input class="i-2" type="text" ng-model="newUser.lastName">
-            <br>
-            Username: <input class="i-2" type="text" ng-model="newUser.username">
-            <br>
-            Password: <input class="i-2" type="password" ng-model="newUser.password">
-            <br>
-            Email: <input class="i-2" type="email" ng-model="newUser.email">
-            <br>
-            Phone <input class="i-2" type="phone" ng-model="newUser.phone">
-            <br>
-            <button class="s-3" ng-click="registerUser()">Sign Up</button>
-        </div>
         </section>
-<footer>
-    <div class="goto">
-        <div class="btn-top" id="gt"></div>
-    </div>
-    <div class="footer-left">
-        <div class="menu-footer">
-            <ul>
-                <li><a href="#"> Flights </a> </li>
-                <li><a href="#"> Hotels </a> </li>
-                <li><a href="#"> Car rentals </a> </li>
-            </ul>
-        </div>
-        <h1> Copyright 2015 <span> All rights reserved </span> </h1>
-    </div>
-    <div class="footer-right">
-        <h1> WE ARE SOCIAL </h1>
-        <ul>
-            <li> <a href="#"> <img src="img/fb.png"> </a> </li>
-            <li> <a href="#"> <img src="img/tw.png"> </a> </li>
-        </ul>
-    </div>
-</footer>
-<script src='js/scrollReveal.min.js'></script>
-<script>
-                window.sr = new scrollReveal();
-                $("#register").leanModal();
-</script>
-</body>
+        <section class="blue" id="modalWindow">
+            <h2 style="text-align: center">Sign Up!</h2>
+            <div style="text-align: center" >
+                <table id="registerTable">
+                    <tr>
+                        <td>First Name: </td>
+                        </td>
+                        <td><input class="i-2" type="text" ng-model="newUser.firstName"></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name:</td>
+                        <td> <input class="i-2" type="text" ng-model="newUser.lastName"></td>
+                    </tr>
+                    <tr>
+                        <td>Username: </td>
+                        <td><input class="i-2" type="text" ng-model="newUser.username"></td>
+                    </tr>
+                    <tr>
+                        <td>Password: </td>
+                        <td><input class="i-2" type="password" ng-model="newUser.password"></td>
+                    </tr>
+                    <tr>
+                        <td>Email: </td>
+                        <td><input class="i-2" type="email" ng-model="newUser.email"></td>
+                    </tr>
+                    <tr>
+                        <td>Phone </td>
+                        <td><input class="i-2" type="phone" ng-model="newUser.phone"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="text-align: right;">
+                            <button class="s-3" ng-click="registerUser()">Sign Up</button>
+                            </td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+        <section class="blue" id="bookingWindow">
+            <h2 style="text-align: center">Your Current Bookings</h2>
+            <div style="text-align: center" >
+
+            </div>
+        </section>
+        <footer>
+            <div class="goto">
+                <div class="btn-top" id="gt"></div>
+            </div>
+            <div class="footer-left">
+                <div class="menu-footer">
+                    <ul>
+                        <li><a href="#"> Flights </a> </li>
+                        <li><a href="#"> Hotels </a> </li>
+                        <li><a href="#"> Car rentals </a> </li>
+                    </ul>
+                </div>
+                <h1> Copyright 2015 <span> All rights reserved </span> </h1>
+            </div>
+            <div class="footer-right">
+                <h1> WE ARE SOCIAL </h1>
+                <ul>
+                    <li> <a href="#"> <img src="img/fb.png"> </a> </li>
+                    <li> <a href="#"> <img src="img/tw.png"> </a> </li>
+                </ul>
+            </div>
+        </footer>
+        <script src='js/scrollReveal.min.js'></script>
+        <script>
+                                window.sr = new scrollReveal();
+                                $("#register").leanModal();
+                                $("#booking").leanModal();
+        </script>
+    </body>
 </html>

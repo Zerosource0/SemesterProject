@@ -23,6 +23,7 @@ public class User implements Serializable {
   private String firstName;
   private String lastName;
   private String email;
+  private String phone;
   
   @OneToMany (cascade = CascadeType.ALL, mappedBy = "User")
   private List<Reservation> reservations = new ArrayList<>();
@@ -36,12 +37,13 @@ public class User implements Serializable {
   public User() {
   }
   
-  public User(String userName, String password, String firstName, String lastName, String email) {
+  public User(String userName, String password, String firstName, String lastName, String email, String phone) {
     this.userName = userName;
     this.password = password;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
+    this.phone = phone;
   }
 
   public List<String> getRolesAsStrings(){
@@ -111,6 +113,13 @@ public class User implements Serializable {
   public void setLastName(String lastName){
       this.lastName = lastName;
   }
-  
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
        
 }

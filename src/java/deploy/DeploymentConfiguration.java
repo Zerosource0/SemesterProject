@@ -46,9 +46,15 @@ public class DeploymentConfiguration implements ServletContextListener {
       Role adminRole = new Role("Admin");
       
 
+<<<<<<< HEAD
       User user = new User("user", PasswordHash.createHash("test"), "FirstName", "LastName","Email@Test.com");
-            User admin = new User("admin", PasswordHash.createHash("test"), "FirstName", "LastName","Email@Test.com");
+      User admin = new User("admin", PasswordHash.createHash("test"), "FirstName", "LastName","Email@Test.com");
       User both = new User("user_admin", PasswordHash.createHash("test"), "FirstName", "LastName","Email@Test.com");
+=======
+      User user = new User("user", PasswordHash.createHash("test"), "FirstName", "LastName","Email@Test.com","2134");
+            User admin = new User("admin", PasswordHash.createHash("test"), "FirstName", "LastName","Email@Test.com","2134");
+      User both = new User("user_admin", PasswordHash.createHash("test"), "FirstName", "LastName","Email@Test.com","2134");
+>>>>>>> a9a8886a05d411a5a790fe32cfbeeaf4985e0051
       user.AddRole(userRole);
       admin.AddRole(adminRole);
       both.AddRole(userRole);
@@ -87,6 +93,7 @@ public class DeploymentConfiguration implements ServletContextListener {
       airlines.add(new AirlinesUrl("http://thebighornairline-ebski.rhcloud.com/GiantHornAirlineServer/","ClassA-19"));
       airlines.add(new AirlinesUrl("http://justfly.azurewebsites.net/MomondoProjekt/","ClassA-42"));
       airlines.add(new AirlinesUrl("http://timetravel-tocvfan.rhcloud.com/","ClassB-TimeTravel"));
+      airlines.add(new AirlinesUrl("https://frenchyairlines-zerosource.rhcloud.com/","Frenchy Airlines"));
       
         em.getTransaction().begin();
             for (AirlinesUrl airline : airlines) {

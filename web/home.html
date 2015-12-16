@@ -152,9 +152,22 @@
                     <th>Travel Time</th>
                     <th>Price</th>
                     </thead>
-                    <tbody ng-repeat="line in data">
+                    <tbody ng-show="allAirlines" ng-repeat="line in data">
                         <tr ng-repeat="f in line.flights">
                             <td>{{line.airline}}</td>
+                            <td>{{f.origin}}</td>
+                            <td>{{f.destination}}</td>
+                            <td>{{f.date| date:"MM/dd/yyyy" }}</td>
+                            <td>{{f.date| date:"h:mma" }}</td>
+                            <td>{{f.numberOfSeats}}</td>
+                            <td>{{f.traveltime}} Minutes</td>
+                            <td>{{f.totalPrice| number:2}}</td>
+                            <td><button class="s-3" ng-click="getData.line = line; getData.flight = f; bookFlight()">Book</button></td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-show="!allAirlines">
+                        <tr ng-repeat="f in data.flights">
+                            <td>{{f.airline}}</td>
                             <td>{{f.origin}}</td>
                             <td>{{f.destination}}</td>
                             <td>{{f.date| date:"MM/dd/yyyy" }}</td>
@@ -344,15 +357,17 @@
       <section class="blue" ng-cloak id="modalWindow">
             <h2 style="text-align: center">Sign Up!</h2>
         <div style="text-align: center" >
-            First Name: <input class="i-1" type="text" ng-model="newUser.firstName"><button style="text-align: right;">Cancel</button>
+            First Name: <input class="i-2" type="text" ng-model="newUser.firstName"><button style="text-align: right;">Cancel</button>
             <br>
-            Last Name: <input class="i-1" type="text" ng-model="newUser.lastName">
+            Last Name: <input class="i-2" type="text" ng-model="newUser.lastName">
             <br>
-            Username: <input class="i-1" type="text" ng-model="newUser.username">
+            Username: <input class="i-2" type="text" ng-model="newUser.username">
             <br>
-            Password: <input class="i-1" type="password" ng-model="newUser.password">
+            Password: <input class="i-2" type="password" ng-model="newUser.password">
             <br>
-            Email: <input class="i-1" type="email" ng-model="newUser.email">
+            Email: <input class="i-2" type="email" ng-model="newUser.email">
+            <br>
+            Phone <input class="i-2" type="phone" ng-model="newUser.phone">
             <br>
             <button class="s-3" ng-click="registerUser()">Sign Up</button>
         </div>

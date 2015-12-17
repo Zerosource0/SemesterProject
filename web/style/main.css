@@ -68,9 +68,15 @@ header{
   height:100%;
   float:right;
 }
-.menu #menu ul{
-  list-style:none;
+
+#menu{
+    list-style:none;
+    float:left;
 }
+#menu li{
+    display: inline;
+}
+
 .menu #menu ul li{
   font-family:Raleway;
   font-size:18px;
@@ -432,6 +438,28 @@ footer{
 
 .tableContainer{
     margin:auto;
+}
+
+.bookingResult {
+    width: 80%;
+    margin:auto;
+}
+
+.bookingResult th{
+    
+    text-align: center;
+    font-size: 1.5em;
+    font-family: Raleway;
+    font-weight: bold;
+}
+
+.bookingResult th, td{
+    border-bottom: 1px solid #ddd;
+}
+
+.bookingResult td{
+    text-align: center;
+    height: 1.3em;
 }
 
 

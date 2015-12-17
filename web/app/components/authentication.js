@@ -1,4 +1,5 @@
 angular.module('myApp.security', [])
+
         .controller('AppLoginCtrl', function ($scope, $rootScope, $http, $window, $location) {
 
             function url_base64_decode(str) {
@@ -18,6 +19,13 @@ angular.module('myApp.security', [])
                 return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
             }
 
+                $scope.checkLogin = function () {
+                    if(!$scope.isAuthenticated){
+                        $scope.loginStatus = "Remember to log in to book a ticket";
+                    }
+                };      
+                    
+
             //Other controller emits the logOutEvent to force a logout
             $scope.$on('logOutEvent', function (event, args) {
                 $scope.error = "Your session timed out. Please login again";
@@ -35,8 +43,8 @@ angular.module('myApp.security', [])
             $scope.isUser = false;
             $scope.message = '';
             $scope.error = null;
-            
-            $scope.loginPrompt = function(){
+
+            $scope.loginPrompt = function () {
                 $scope.loggingIn = true;
             };
 

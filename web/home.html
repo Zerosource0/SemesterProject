@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="myApp" >
+<html ng-app="myApp" ng-controller="AppLoginCtrl">
     <head>
         <title> Morondo </title>
         <link rel="stylesheet" href="style/main.css">
@@ -42,21 +42,21 @@
     <body ng-controller="homeViewCtrl">
         <header id="gtop">
             <div class="mask">
-                <div  ng-controller="AppLoginCtrl">
+                <div  >
                     <div class="top-h">
                         <div class="logo">
                             <a href="#" id="logo"> Morondo </a>
                         </div>
-                        <div class="menu">
+                        <div class="menu" >
                             <div ng-show="!loggingIn" ng-cloak>
                                 <button type="submit" class="s-3" ng-click="loginPrompt()">login</button>
                                 <a href="#modalWindow" id="register">Sign Up!</a>
                             </div>
                             <div ng-show="loggingIn" ng-cloak >
-                                <form role="form" ng-show="!isAuthenticated" ng-submit="login()">
+                                <form role="form" ng-show="!isAuthenticated" ng-click="checkLogin()" ng-submit="login()">
                                     <ul id="menu">
-                                        <li>Username:<input name="security_username" type="text" style="width:10em;" placeholder="User name" class="form-control"ng-model="user.username"></li>
-                                        <li>Password:<input name="password" type="password" style="width:10em;" placeholder="Password" class="form-control" ng-model="user.password"></li>                       
+                                        <li style="padding-right: 10px">Username:<input name="security_username" type="text" style="width:10em;" placeholder="User name" class="form-control"ng-model="user.username"></li>
+                                        <li style="padding-right: 10px">Password:<input name="password" type="password" style="width:10em;" placeholder="Password" class="form-control" ng-model="user.password"></li>                       
                                         <li><input type="submit" value="login" class="s-3"></li>
                                         <a href="#modalWindow" id="register">Sign Up!</a>
                                     </ul> 
@@ -65,12 +65,12 @@
 
                                     <p class="navbar-text">LOGGED IN AS: {{username|uppercase}}</p>
 
-                                    <button style="float:right;" type="submit" class="s-3" ng-click="logout()">Logout
+                                    <button style="float:right;" type="submit" class="s-3" ng-click="logout(); checklogIn()">Logout
                                     </button>
                                     <div class="actions">
                                         <button class="s-4" id="TakeAction">Account Info</button>
                                         <ul  id="actions">
-                                            <li><a href="#bookingWindow" id="booking"><button class="s-3">Bookings</button></a></li>
+                                            <li><a href="#bookingWindow" id="booking"><button ng-click="getReservations()" class="s-3">Bookings</button></a></li>
                                             <li><a><button class="s-3">Account</button></a></li>
                                         </ul>
                                     </div>
@@ -91,12 +91,13 @@
                             MR.{{username|uppercase}}</h1>
                     </div>
                 </div>
+                </div>
                 <div >
                     <div class="search" ng-cloak>
                         <form>
                             <div class="container-1">
                                 <div class="col-5">  
-                                    <input list="airports" class="i-1" placeholder="Origin city" ng-model="searcht.from">
+                                    <input list="airports" class="i-1" placeholder="Origin city" ng-model="searcht.from" required>
                                     <datalist id="airports">
                                         <option ng-repeat="airport in airports"  value="{{airport.iata}}">{{airport.cityname}}, {{airport.description}}/>
                                     </datalist>
@@ -104,7 +105,7 @@
                                 </div>
 
                                 <div class="col-5">
-                                    <input list="airports"  class="i-1" placeholder="Destination" ng-model="searcht.to">
+                                    <input list="airports"  class="i-1" placeholder="Destination" ng-model="searcht.to" required>
                                     <datalist id="airports">
                                         <option value="hello"/>
                                         <option ng-repeat="airport in airports"  value="{{airport.iata}}">{{airport.cityname}}, {{airport.description}}/>
@@ -122,12 +123,12 @@
                                 </div>
 
                                 <div class="col-5">
-                                    <input type="date" class="i-1" ng-model="searcht.date">
+                                    <input type="date" class="i-1" ng-model="searcht.date" required>
                                     <input type="submit" value="P" class="s-1">
                                 </div>
 
                                 <div class="col-5">
-                                    <select class="se-1" ng-model="searcht.seats">
+                                    <select class="se-1" ng-model="searcht.seats" required>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -172,7 +173,7 @@
                                 <td>{{f.totalPrice| number:2}}</td>
                                 <td><button class="s-3" ng-click="getData.line = line;
                                                     getData.flight = f;
-                                                    bookFlight()">Book</button></td>
+                                                    bookFlight(); checkLogin()">Book</button></td>
                             </tr>
                         </tbody>
                         <tbody ng-show="!allAirlines" ng-cloak="">
@@ -184,9 +185,11 @@
                                 <td>{{f.numberOfSeats}}</td>
                                 <td>{{f.traveltime}} Minutes</td>
                                 <td>{{f.totalPrice| number:2}}</td>
-                                <td><button class="s-3" ng-click="getData.line = line;
-                                                getData.flight = f;
-                                                bookFlight()">Book</button></td>
+                                <td>
+                                    <button class="s-3" 
+                                    ng-click="getData.line = line; getData.flight = f;bookFlight(); checkLogin()">Book
+                                    </button>
+                                        </td>
                             </tr>
                         </tbody>
                     </table>
@@ -216,6 +219,7 @@
         <div  ng-cloak ng-show="booking">
             <section class="about" >
                 <div class="title">
+                    <h3 style="text-align: center; color: red;">{{loginStatus}}</h3>
                     <h1>Step 3 - Fill in additional Information</h1>
                 </div>
                 <br>
@@ -374,23 +378,23 @@
                     <tr>
                         <td>First Name: </td>
                         </td>
-                        <td><input class="i-2" type="text" ng-model="newUser.firstName"></td>
+                        <td><input class="i-2" type="text" ng-model="newUser.firstName" ng-required></td>
                     </tr>
                     <tr>
                         <td>Last Name:</td>
-                        <td> <input class="i-2" type="text" ng-model="newUser.lastName"></td>
+                        <td> <input class="i-2" type="text" ng-model="newUser.lastName" ng-required></td>
                     </tr>
                     <tr>
                         <td>Username: </td>
-                        <td><input class="i-2" type="text" ng-model="newUser.username"></td>
+                        <td><input class="i-2" type="text" ng-model="newUser.username" ng-required></td>
                     </tr>
                     <tr>
                         <td>Password: </td>
-                        <td><input class="i-2" type="password" ng-model="newUser.password"></td>
+                        <td><input class="i-2" type="password" ng-model="newUser.password" ng-required></td>
                     </tr>
                     <tr>
                         <td>Email: </td>
-                        <td><input class="i-2" type="email" ng-model="newUser.email"></td>
+                        <td><input class="i-2" type="email" ng-model="newUser.email" ng-required></td>
                     </tr>
                     <tr>
                         <td>Phone </td>
@@ -403,12 +407,27 @@
                             </td>
                     </tr>
                 </table>
+                <h2 style="color: red;">{{registrationException}}</h2>
             </div>
         </section>
         <section class="blue" id="bookingWindow">
-            <h2 style="text-align: center">Your Current Bookings</h2>
+            <h2 style="text-align: center; font-weight: bold;">Your Current Bookings</h2>
+            <br>
             <div style="text-align: center" >
-
+                <table class="bookingResult">
+                    <tr>
+                        <td><h3 style="font-weight: bold;">Origin</h3></td>
+                        <td><h3 style="font-weight: bold;">Destination</h3></td>
+                        <td><h3 style="font-weight: bold;">Date</h3></td>
+                        <td><h3 style="font-weight: bold;">Time</h3></td>
+                    <tr>
+                    <tr ng-repeat="s in reservations">
+                        <td>{{s.origin}}</td>
+                        <td>{{s.destination}}</td>
+                        <td>{{s.flightDate | date:"MM/dd/yyyy" }}</td>
+                        <td>{{s.flightDate | date:"h:mma"  }}</td>
+                    </tr>
+                </table>
             </div>
         </section>
         <footer>

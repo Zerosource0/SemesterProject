@@ -20,6 +20,16 @@ angular.module('myApp.homeView', ['ngRoute'])
                 var seats = 1;
                 var passengerString="";
                 $scope.passengers = {};
+                
+                $scope.getReservations = function(){
+                $http.get("api/reservation")
+                        .success(function(data, status){
+                            $scope.reservations = data;
+                        })
+                        .error(function(data,status){
+                            
+                        });
+            }
 
                 $http({
                     method: 'GET',
@@ -41,15 +51,6 @@ angular.module('myApp.homeView', ['ngRoute'])
                     $scope.error = res.status + ": " + res.data.statusText;
                 });
 
-                $scope.bookFlight = function () {
-                    $("html, body").animate({ scrollTop: 1300 }, 800);
-                    $scope.booking = true;
-                    if (seats > 1) {
-                        $scope.extraPassengers = true;
-                    }
-
-                };
-
                 $scope.getData = {};
                 
                $scope.passengerFormatter = function(){
@@ -67,17 +68,28 @@ angular.module('myApp.homeView', ['ngRoute'])
                 };
                 
                 $scope.registerUser = function(){
-                    
-                    $http.post("api/newuser/",{ username: $scope.newUser.username, password: $scope.newUser.password, role: "user", firstName: $scope.newUser.firstName
+                    if(angular.isUndefined($scope.newUser.username)){
+                       $scope.registrationException = "Please enter a username"; 
+                    }
+                    if(angular.isUndefined($scope.newUser.password)){
+                       $scope.registrationException = "Please enter a password"; 
+                    }
+                    if(angular.isUndefined($scope.newUser.firstName)){
+                       $scope.registrationException = "Please enter a first name"; 
+                    }
+                    if(angular.isUndefined($scope.newUser.lastName)){
+                       $scope.registrationException = "Please enter a last name"; 
+                    }
+                     if(angular.isUndefined($scope.newUser.email)){
+                       $scope.registrationException = "Please enter a last name"; 
+                    }
+                    $http.post("api/newuser/",{username: $scope.newUser.username, password: $scope.newUser.password, role: "user", firstName: $scope.newUser.firstName
                             , lastName: $scope.newUser.lastName, email: $scope.newUser.email, phone: $scope.newUser.phone})
                             .success(function(data,status){
                                  if (status != 200) {
-                                     console.log(data);
-                                    console.log("failed: " +status);
-                            console.log({ username: $scope.newUser.username, password: $scope.newUser.password, role: "user", 
-                                firstName: $scope.newUser.firstName, lastName: $scope.newUser.lastName, email: $scope.newUser.email, 
-                                phone: $scope.newUser.phone});
+                                     $scope.registrationException = "Make sure you entered all the information correctly";
                                 } else {
+                                    $("#lean_overlay").trigger("click");
                                     console.log("success: " +status);
                                     $("html, body").animate({ scrollTop: $(window).height()/1.12 }, 600);
                                 }
@@ -121,14 +133,23 @@ angular.module('myApp.homeView', ['ngRoute'])
                     });
                 }
 
+                    $scope.bookFlight = function () {
+
+                    $("html, body").animate({ scrollTop: 1300 }, 800);
+                    $scope.booking = true;
+                    if (seats > 1) {
+                        $scope.extraPassengers = true;
+                    }
+
+                }; 
                         $scope.seatAmount = function () {
                             console.log("seats" + seats);
                             return new Array(parseInt(seats - 1));
                         };
 
                 $scope.searchSelector = function () {
-                    
-                    window.scrollTo(0, 605);
+                    $("html, body").animate({ scrollTop: $(window).height()/1.12 }, 600);
+
                     $scope.searchTable = false;
                     if (angular.isUndefined($scope.searcht.to) || $scope.searcht.to === "" || $scope.searcht.to === null) {
                         if (angular.isUndefined($scope.searcht.airline) || $scope.searcht.airline === "" || $scope.searcht.airline === null || $scope.searcht.airline === "All") {

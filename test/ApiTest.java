@@ -133,7 +133,7 @@ public class ApiTest {
                 then().statusCode(401);
                 
     }
-    
+    /*
     @Test
     public void searchToTest_200(){
         
@@ -150,6 +150,26 @@ public class ApiTest {
         given().
                 contentType("application/json").
                 when().get("flightinfo/CPH/SXF/2016-01-01T00:00:00.000Z/1").
+                then().statusCode(200);
+                
+    }
+    */
+    @Test
+    public void searchSpecificFromTest_200(){
+        
+        given().
+                contentType("application/json").
+                when().get("airline/Angular Airline/CPH/2016-01-01T00:00:00.000Z/1").
+                then().statusCode(200);
+                
+    }
+    
+      @Test
+    public void searchSpecificFromToTest_200(){
+        
+        given().
+                contentType("application/json").
+                when().get("airline/Angular Airline/CPH/SXF/2016-01-01T00:00:00.000Z/1").
                 then().statusCode(200);
                 
     }

@@ -86,7 +86,6 @@ public final class FlightSearchFacade {
     public String getJsonFromAirlinesFrom(final String from, final String date, final Integer seats) {
        
         
-        
         results = new ArrayList<String>();
 
         List<Future<String>> list = new ArrayList<>();
@@ -113,7 +112,9 @@ public final class FlightSearchFacade {
                 //This "vodoo" is a ternarry operator. If you don't know it, read:
                 //http://alvinalexander.com/java/edu/pj/pj010018
 
+                if(!list1.get().contains("httpError")){
                 results.add(list1.get());
+                }
             } catch (InterruptedException ex) {
                 Logger.getLogger(FlightSearchFacade.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ExecutionException ex) {
@@ -192,8 +193,9 @@ public final class FlightSearchFacade {
             try {
                 //This "vodoo" is a ternarry operator. If you don't know it, read:
                 //http://alvinalexander.com/java/edu/pj/pj010018
-
+                if(!list1.get().contains("httpError")){
                 results.add(list1.get());
+                }
             } catch (InterruptedException ex) {
                 Logger.getLogger(FlightSearchFacade.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ExecutionException ex) {
@@ -218,13 +220,15 @@ public final class FlightSearchFacade {
             int i = 0;
             while (scan.hasNext()) {
                 jsonStr += scan.nextLine();
-                //System.out.println(i+" " + jsonStr);
+                System.out.println(i+" " + jsonStr);
             }
 
             scan.close();
             return jsonStr;
         } catch (IOException ex) {
+            
             throw new NotFoundException("No search results");
+            
         }
     }
 

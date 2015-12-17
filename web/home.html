@@ -105,7 +105,7 @@
                                 </div>
 
                                 <div class="col-5">
-                                    <input list="airports"  class="i-1" placeholder="Destination" ng-model="searcht.to" required>
+                                    <input list="airports"  class="i-1" placeholder="Destination" ng-model="searcht.to">
                                     <datalist id="airports">
                                         <option value="hello"/>
                                         <option ng-repeat="airport in airports"  value="{{airport.iata}}">{{airport.cityname}}, {{airport.description}}/>
@@ -189,7 +189,7 @@
                                     <button class="s-3" 
                                     ng-click="getData.line = line; getData.flight = f;bookFlight(); checkLogin()">Book
                                     </button>
-                                        </td>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

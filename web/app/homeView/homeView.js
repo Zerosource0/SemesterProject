@@ -143,7 +143,7 @@ angular.module('myApp.homeView', ['ngRoute'])
 
                 }; 
                         $scope.seatAmount = function () {
-                            console.log("seats" + seats);
+                            
                             return new Array(parseInt(seats - 1));
                         };
 
@@ -190,6 +190,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                                     $scope.loading = "";
                                     $scope.data = data;
                                     $scope.searchTable = true;
+                                    console.log(data);
                                 }
                             }
                             ).error(function (data, status) {
@@ -250,6 +251,8 @@ angular.module('myApp.homeView', ['ngRoute'])
                                 } else {
                                     $scope.loading = "";
                                     $scope.data = data;
+                                    console.log(data);
+                                    $scope.searchTable = true;
                                 }
                             }
                             ).error(function (data, status) {
@@ -279,6 +282,7 @@ angular.module('myApp.homeView', ['ngRoute'])
                                 } else {
                                     $scope.loading = "";
                                     $scope.data = data;
+                                    $scope.searchTable = true;
                                 }
                             }
                             ).error(function (data, status) {

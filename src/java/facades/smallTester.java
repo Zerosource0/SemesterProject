@@ -5,6 +5,7 @@
  */
 package facades;
 
+import entity.Reservation;
 import entity.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,18 @@ public class smallTester {
         EntityManager em = emf.createEntityManager();
         String append="";
         List<User> users = em.createQuery("select u from User u, Reservation r where u.userName=r.user.userName").getResultList();
+       // List<Reservation> reservations = em.createQuery("select r from User u, Reservation r where u.userName=r.user.userName").getResultList();
         for (User user : users) {
-//            if (!user.getReservations().isEmpty()) append = user.getReservations().get(0).toString();
-            System.out.println(user.toString());
+           // System.out.println(reservations.get(0).toString());
+//            for (Reservation reservation : reservations) {
+//                if (user.getUserName().equals(reservation.getUser().getUserName())) user.addReservation(reservation);
+//            }
+           // System.out.println(user.toString());
+            for (Reservation reservation : user.getReservations()) {
+                System.out.println(reservation.toString());
+                
+            }
+           // user.getReservations().get(0).toString();
         }
         
 //        CurrencyFacade cf = new CurrencyFacade();

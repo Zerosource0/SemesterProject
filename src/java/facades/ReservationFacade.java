@@ -60,6 +60,7 @@ public class ReservationFacade {
         try {
             em.getTransaction().begin();
             em.persist(reservation);
+            
            // em.persist(user);
             em.getTransaction().commit();
 

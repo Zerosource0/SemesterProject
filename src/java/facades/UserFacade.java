@@ -1,6 +1,7 @@
 package facades;
 
 import deploy.DeploymentConfiguration;
+import entity.Reservation;
 import entity.Role;
 import entity.User;
 import exceptions.BadParameterException;
@@ -91,6 +92,12 @@ public class UserFacade {
     {
         EntityManager em = emf.createEntityManager();
         return em.createQuery("select u from User u, Reservation r where u.userName=r.user.userName").getResultList();
+    }
+    
+    public List<Reservation> getReservationsWithUsers ()
+    {
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery("select r from User u, Reservation r where u.userName=r.user.userName").getResultList();
     }
 
     public User getUserByUserId(String id) {

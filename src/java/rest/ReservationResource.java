@@ -7,9 +7,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.nimbusds.jose.JOSEException;
 import entity.Passenger;
 import entity.Reservation;
@@ -24,12 +22,10 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -57,20 +53,35 @@ public class ReservationResource {
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllReservations() {
-
+        List<String> roles = uf.getCurrentUser().getRolesAsStrings();
+        Boolean switchCase=true;
+        for (String role : roles) 
+        {
+            if (role.equals("admin")) switchCase=false;
+            
+        }
+        if (switchCase==true) return getReservationsByUser();
+        
         List<User> users = uf.getUsersWithReservations();
 //        for (User user : users) {
 //            System.out.println(user.toString());
 //        }
         JsonObject userJObject = new JsonObject();
-
+        List<Reservation> l = uf.getReservationsWithUsers();
         for (User user : users) {
-
-            List<Reservation> reservations = user.getReservations();
-
+            for (Reservation reservation : l) {
+                if (user.getUserName().equals(reservation.getUser().getUserName())) user.addReservation(reservation);
+            }
+           // System.out.println(user.toString());
+//            List<Passenger> pass = new ArrayList<>();
+//            Reservation re = new Reservation(user, "shity", "shity", "shity", 432, 432, 342, "shity", "shity", pass);
+//            user.addReservation(re);
+           // List<Reservation> reservations = user.getReservations();
+            
             JsonArray jArray = new JsonArray();
 
-            for (Reservation r : reservations) {
+            for (Reservation r : user.getReservations()) {
+                System.out.println(r.toString());
                 JsonObject json = new JsonObject();
                 json.addProperty("flightID", r.getFlightID());
                 json.addProperty("flightDate", r.getFlightDate());
